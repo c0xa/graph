@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as d3 from 'd3';
-import {AppSettingsService} from "./logic/models/AppSettingsService";
+import {HttpService} from "./logic/models/HttpService";
 import {NodeGraph} from "./logic/models/NodeGraph";
 import {Link} from "./logic/models/Link";
 
@@ -32,11 +32,11 @@ export class AppComponent implements OnInit {
         .attr("text", "1");
 
 
-    constructor(private appSettingsService : AppSettingsService) {}
+    constructor(private httpService : HttpService) {}
 
     ngOnInit() {
-        this.appSettingsService.getNodes().subscribe((data: NodeGraph[]) => this.nodeGraph = data);
-        this.appSettingsService.getLinks().subscribe((data: Link[]) => this.links = data);
+        this.httpService.getNodes().subscribe((data: NodeGraph[]) => this.nodeGraph = data);
+        this.httpService.getLinks().subscribe((data: Link[]) => this.links = data);
     }
 
     ngOnDestroy() {

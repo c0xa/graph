@@ -1,15 +1,18 @@
-import { Node } from './';
 
-export class Link implements d3.SimulationLinkDatum<Node> {
+export class Link {
     // optional - defining optional implementation properties - required for relevant typing assistance
     index?: number;
 
     // must - defining enforced implementation properties
-    source: Node | string | number;
-    target: Node | string | number;
+    source: string;
+    target: string;
+    value: number;
+    time: number;
 
-    constructor(source, target) {
+    constructor(source: string, target: string, value: number, time: number) {
         this.source = source;
         this.target = target;
+        this.value = value;
+        this.time = time;
     }
 }

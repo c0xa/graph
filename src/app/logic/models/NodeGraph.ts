@@ -1,6 +1,6 @@
 import APP_CONFIG from '../../app.config';
 
-export class NodeGraph implements d3.SimulationNodeDatum {
+export class NodeGraph {
   // optional - defining optional implementation properties - required for relevant typing assistance
   index?: number;
   x?: number;
@@ -13,7 +13,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
   id: string;
   linkCount: number = 0;
 
-  constructor(id) {
+  constructor(id: string) {
     this.id = id;
   }
 
