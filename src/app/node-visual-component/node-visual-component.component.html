@@ -1,1 +1,11 @@
-<p>node-visual-component works!</p>
+<div *ngFor="let user of nodesGraph">
+    <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle
+            [attr.r]="radius"
+            cx="60"
+            cy="60"
+            stroke-width="12"
+            class="progress__meter"
+        />
+    </svg>
+</div>
