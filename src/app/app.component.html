@@ -1,0 +1,14 @@
+<h1>you 16</h1>
+<ul>
+    <li *ngFor="let user of nodeGraph">
+        <p>Имя пользователя: {{user?.id}}</p>
+    </li>
+</ul>
+
+<ul>
+    <li *ngFor="let user of links">
+        <p>Имя пользователя: {{user?.value}}</p>
+    </li>
+</ul>
+
+<!-- <graph [nodes]="nodes" [links]="links"></graph>-->
