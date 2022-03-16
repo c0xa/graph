@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NodeVisualComponentComponent } from './node-visual-component/node-visual-component.component';
 import {HttpService} from "./logic/models/HttpService";
+import {NgxGraphModule} from "@swimlane/ngx-graph";
 // import { SHARED_VISUALS } from './visuals/shared';
 
 @NgModule({
@@ -16,6 +17,7 @@ import {HttpService} from "./logic/models/HttpService";
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
+        NgxGraphModule,
         // ...SHARED_VISUALS
     ],
     providers: [HttpService],
