@@ -33,4 +33,6 @@ export class NodeGraph {
     let index = Math.floor(APP_CONFIG.SPECTRUM.length * this.normal());
     return APP_CONFIG.SPECTRUM[index];
   }
+
+
 }

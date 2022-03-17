@@ -22,4 +22,5 @@ export class NodeVisualComponentComponent  {
         })
     }
 
+    // this.links.forEach((link) => link.setSourceAndTarget(this.nodeGraph));
 }

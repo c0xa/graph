@@ -1,11 +1,43 @@
-<div *ngFor="let user of nodesGraph">
-    <svg width="120" height="120" viewBox="0 0 120 120">
+<div *ngFor="let node of nodesGraph">
+<!--    <svg width="120" height="120" viewBox="0 0 120 120">-->
+<!--        <circle-->
+<!--            [attr.r]="radius"-->
+<!--            cx="60"-->
+<!--            cy="60"-->
+<!--            stroke-width="12"-->
+<!--            class="progress__meter"-->
+<!--        />-->
+<!--    </svg>-->
+<!--    <span>{{node.id}}</span>-->
+
+    <svg
+        width="20" height="20" viewBox="0 0 20 20"
+        class="node"
+        [id] = node.id
+        [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
         <circle
-            [attr.r]="radius"
-            cx="60"
-            cy="60"
-            stroke-width="12"
-            class="progress__meter"
+            [attr.fill]="node.color"
+            cx="10"
+            cy="10"
+            [attr.r]="node.r"
         />
     </svg>
+    <span
+        class="node-name"
+        [attr.font-size]="node.fontSize">
+    {{node.id}}</span>
 </div>
+
+
+<div *ngFor="let link of links" class="link">
+    <div>{{link.getX()}}</div>
+    <svg>
+        <line x1="0" y1="80" x2="100" y2="20" stroke="black" />
+    </svg>
+</div>
+
+<!--        class="link"-->
+<!--        [attr.x1]="link.source.x"-->
+<!--        [attr.y1]="link.source.y"-->
+<!--        [attr.x2]="link.target.x"-->
+<!--        [attr.y2]="link.target.y"-->
