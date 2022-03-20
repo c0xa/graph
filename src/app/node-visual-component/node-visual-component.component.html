@@ -1,11 +1,28 @@
-<div *ngFor="let user of nodesGraph">
-    <svg width="120" height="120" viewBox="0 0 120 120">
-        <circle
-            [attr.r]="radius"
-            cx="60"
-            cy="60"
-            stroke-width="12"
-            class="progress__meter"
-        />
-    </svg>
-</div>
+<svg #svg [attr.width]="_options.width" [attr.height]="_options.height">
+    <g [zoomableOf]="svg" class="panel">
+        <g *ngFor="let link of links">
+            <line
+                [attr.x1]="link.source.x"
+                [attr.y1]="link.source.y"
+                [attr.x2]="link.target.x"
+                [attr.y2]="link.target.y"
+                stroke="black">
+            </line>
+        </g>
+        <g *ngFor="let node of nodes">
+            <g [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+                <circle class="node"
+                        [attr.fill]="node.color"
+                        cx="0"
+                        cy="0"
+                        [attr.r]="node.r"
+                />
+                <text
+                    class="node__text"
+                    [attr.font-size]="node.fontSize"
+                >{{node.id}}</text>
+            </g>
+        </g>
+    </g>
+</svg>
+

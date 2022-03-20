@@ -5,20 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NodeVisualComponentComponent } from './node-visual-component/node-visual-component.component';
 import {HttpService} from "./logic/models/HttpService";
-// import { SHARED_VISUALS } from './visuals/shared';
-
+import { D3Service, D3_DIRECTIVES } from './d3';
+import { InputBoxComponent } from './input-box/input-box.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @NgModule({
     declarations: [
         AppComponent,
-        NodeVisualComponentComponent
+        NodeVisualComponentComponent,
+        ...D3_DIRECTIVES,
+        InputBoxComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        // ...SHARED_VISUALS
+        FormsModule
     ],
-    providers: [HttpService],
+    providers: [HttpService, D3Service],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

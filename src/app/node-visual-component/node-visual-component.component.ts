@@ -1,25 +1,50 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {NodeGraph} from "../logic/models/NodeGraph";
-import {Link} from "../logic/models/Link";
+import {ChangeDetectorRef, Component, HostListener, Input, OnInit} from '@angular/core';
+
+import {D3Service, ForceDirectedGraph, Link, NodeGraph} from "../d3";
 
 @Component({
   selector: 'app-node-visual-component',
   templateUrl: './node-visual-component.component.html',
   styleUrls: ['./node-visual-component.component.less']
 })
-export class NodeVisualComponentComponent  {
-    @Input() nodesGraph: NodeGraph[] = [];
-    @Input() links: Link[] = [];
+export class NodeVisualComponentComponent implements OnInit {
+    @Input('nodes') nodes: NodeGraph[] = [];
+    @Input('links') links: Link[] = [];
 
-    radius = 54;
-    circumference = 2 * Math.PI * this.radius;
-    dashoffset: number = 0;
+    graph!: ForceDirectedGraph;
+    _options: { width: number, height: number } = {width: 800, height: 600};
 
-    constructor() {
-        console.log(this.nodesGraph.length);
-        this.nodesGraph.forEach((data: NodeGraph) => {
-            console.log("soak", data.id);
-        })
+    @HostListener('window:resize', ['$event'])
+    onResize(event: any) {
+        this.graph.initSimulation(this.options);
     }
 
+
+    constructor(private d3Service: D3Service, private ref: ChangeDetectorRef) {
+    }
+
+    ngOnInit() {
+        /** Receiving an initialized simulated graph from our custom d3 service */
+        this.graph = this.d3Service.getForceDirectedGraph(this.nodes, this.links, this.options);
+
+        /** Binding change detection check on each tick
+         * This along with an onPush change detection strategy should enforce checking only when relevant!
+         * This improves scripting computation duration in a couple of tests I've made, consistently.
+         * Also, it makes sense to avoid unnecessary checks when we are dealing only with simulations data binding.
+         */
+        this.graph.ticker.subscribe((d:any) => {
+            this.ref.markForCheck();
+        });
+    }
+
+    ngAfterViewInit() {
+        this.graph.initSimulation(this.options);
+    }
+
+    get options() {
+        return this._options = {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    }
 }

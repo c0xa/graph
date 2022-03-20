@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as d3 from 'd3';
 import {HttpService} from "./logic/models/HttpService";
-import {NodeGraph} from "./logic/models/NodeGraph";
-import {Link} from "./logic/models/Link";
+import {Link, NodeGraph} from "./d3";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {map} from "rxjs/operators";
+import {InputBoxComponent} from "./input-box/input-box.component";
 
 
 @Component({
@@ -12,34 +15,81 @@ import {Link} from "./logic/models/Link";
 })
 
 export class AppComponent implements OnInit {
-    // dataArray = [20, 40, 100];
-    nodeGraph: NodeGraph[] = [];
+    nodes: NodeGraph[] = [];
     links: Link[] = [];
+    mapNodes: Map<string, NodeGraph> = new Map<string, NodeGraph>();
+    defaultData = "{\n" +
+        "    \"nodes\": [\n" +
+        "        {\n" +
+        "            \"id\" : \"toto\"\n" +
+        "        },\n" +
+        "        {\n" +
+        "            \"id\" : \"2\"\n" +
+        "        }\n" +
+        "    ],\n" +
+        "    \"links\": [ {\n" +
+        "            \"source\": \"toto\",\n" +
+        "            \"target\": \"2\",\n" +
+        "            \"value\": 100,\n" +
+        "            \"time\": 1\n" +
+        "        }]\n" +
+        "}\n";
 
-    // canvas = d3.select("body")
-    //     .append("svg")
-    //     .attr("width", 500)
-    //     .attr("height", 500)
-    //
-    // circle1 = this.canvas.selectAll("circle")
-    //     .data(this.dataArray)
-    //     .enter()
-    //     .append("circle")
-    //     .attr("cx", function (r) {return r + r})
-    //     .attr("cy", function (r) {return r + r})
-    //     .attr("r", function (r) {return r})
-    //     .attr("fill", "red")
-    //     .attr("text", "1");
-
-
-    constructor(private httpService : HttpService) {}
-
-    ngOnInit() {
-        this.httpService.getNodes().subscribe((data: NodeGraph[]) => this.nodeGraph = data);
-        this.httpService.getLinks().subscribe((data: Link[]) => this.links = data);
-    }
-
+    dataJson: string = "";
+    ngOnInit(){}
     ngOnDestroy() {
 
+    }
+
+    constructor(httpService: HttpService, private cd: ChangeDetectorRef) {
+        const N = 3
+
+        /** constructing the nodes array */
+        // for (let i = 1; i <= N; i++) {
+        //     this.nodes.push(new NodeGraph(String((i))));
+        // }
+        // // this.nodes.push(new NodeGraph("1"));
+        // // this.nodes.push(new NodeGraph("2"));
+        // console.log("soak node ",   this.nodes);
+        // this.links.push(new Link(this.nodes[0], this.nodes[1], 0, 0));
+        // this.nodes[0].linkCount++;
+        // this.nodes[1].linkCount++;
+        this.parsing(this.defaultData);
+
+    }
+
+
+    parsing(data: string) {
+        let objJson = JSON.parse(data);
+        for(const event in objJson){
+            const dataCopy = objJson[event];
+            for (let key in dataCopy){
+                if (event == "nodes") {
+                    this.mapNodes.set(dataCopy[key].id, new NodeGraph(dataCopy[key].id, this.cd))
+                } else if (event == "links") {
+                    let source = this.mapNodes.get(dataCopy[key].source);
+                    let target = this.mapNodes.get(dataCopy[key].target);
+                    if (source && target) {
+                        this.links.push(new Link(source, target, dataCopy[key].value, dataCopy[key].time));
+                        source.linkCount++;
+                        target.linkCount++;
+                    }
+                }
+            }
+        }
+        this.mapNodes.forEach((key, value) => {
+            this.nodes.push(key);
+        });
+        console.log("soak n", this.nodes)
+    }
+
+    onSubmit() {
+        this.nodes = [];
+        this.links = [];
+        this.mapNodes = new Map<string, NodeGraph>();
+        console.log("soak");
+        this.dataJson = document.forms[0]['text_area_name'].value;
+        this.parsing(this.dataJson);
+        this.cd.detectChanges();
     }
 }

@@ -1,36 +1,9 @@
-<h1>you 16</h1>
-<!--<app-node-visual-component-->
-<!--    [nodesGraph]="nodeGraph"-->
-<!--    [links]="links"-->
-<!--&gt;</app-node-visual-component>-->
-<ngx-graph
-    class="chart-container"
-    [view]="[800, 200]"
-    [showMiniMap]="true"
-    [links]="[
-    {
-      id: 'a',
-      source: 'first',
-    target: 'second',
-      label: 'is parent of'
-    }, {
-      id: 'b',
-      source: 'first',
-      target: 'third',
-      label: 'custom label'
-    }
-  ]"
-    [nodes]="[
-    {
-      id: 'first',
-      label: 'A'
-    }, {
-      id: 'second',
-      label: 'B'
-    }, {
-      id: 'third',
-      label: 'C'
-    }
-  ]"
->
-</ngx-graph>
+<form (submit)="onSubmit()" class="form">
+    <textarea class="textarea" name="text_area_name" id="jsonData">{{defaultData}}</textarea>
+    <button title="start" type="submit">start</button>
+</form>
+
+<app-node-visual-component
+    [nodes]="nodes"
+    [links]="links"
+></app-node-visual-component>
