@@ -1,8 +1,10 @@
 <form (submit)="onSubmit()" class="form">
     <textarea class="textarea" name="text_area_name" id="jsonData">{{defaultData}}</textarea>
+    <input name="player" type="range" min="1" max="10" value="5" class="slider" #slider>
     <button title="start" type="submit">start</button>
 </form>
 
+<div>{{this.time}}</div>
 <app-node-visual-component
     [nodes]="nodes"
     [links]="links"

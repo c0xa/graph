@@ -4,22 +4,34 @@ import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {Link, NodeGraph} from "../../d3";
 
-
 @Injectable()
-export class HttpService{
+export class HttpService {
     fileName: string = "assets/materials.json";
     // dataJson: Observable<any>;
     private links: Link[] = [];
     private nodeGraph: NodeGraph[] = [];
-
+    products: any = [];
     constructor(private http: HttpClient) {
         // this.dataJson = this.http.get(this.fileName)
         // console.log(" this.dataJson",  this.dataJson)
 
-        this.http.get(this.fileName).pipe(map(data => {})).subscribe(result => {
-            console.log(result);
-        });
+        // this.http.get(this.fileName).pipe(map(data => {})).subscribe(result => {
+        //     console.log(result);
+        // });
+        // this.http.get(this.fileName).subscribe(data =>{
+        //     console.log("data soak", data);
+        //     this.products = data;
+        // })
     }
+
+    getData(){
+        return this.http.get(this.fileName);
+    }
+
+    // getNodes(): void {
+    //     console.log("this.products soak", this.products);
+    //     return this.products["nodes"];
+    // }
 
     // getLinks() :Link[] {
     //     this.getObservableLinks().subscribe((data: Link[]) => this.links = data);

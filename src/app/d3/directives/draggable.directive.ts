@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, OnInit } from '@angular/core';
+import {Directive, Input, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { NodeGraph, ForceDirectedGraph } from '../models';
 import { D3Service } from '../d3.service';
 
@@ -6,12 +6,13 @@ import { D3Service } from '../d3.service';
     selector: '[draggableNode]'
 })
 export class DraggableDirective implements OnInit {
-    @Input('draggableNode') draggableNode!: NodeGraph;
-    @Input('draggableInGraph') draggableInGraph!: ForceDirectedGraph;
-
-    constructor(private d3Service: D3Service, private _element: ElementRef) { }
+    // @Input('draggableNode') draggableNode!: NodeGraph;
+    // @Input('draggableInGraph') draggableInGraph!: ForceDirectedGraph;
+    //
+    // @ViewChild('number') number: number = 0;
+    constructor() { }
 
     ngOnInit() {
-        this.d3Service.applyDraggableBehaviour(this._element.nativeElement, this.draggableNode, this.draggableInGraph);
+        // this.d3Service.applyDraggableBehaviour(this._element.nativeElement, this.draggableNode, this.draggableInGraph);
     }
 }

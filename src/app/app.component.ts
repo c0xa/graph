@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import * as d3 from 'd3';
 import {HttpService} from "./logic/models/HttpService";
 import {Link, NodeGraph} from "./d3";
@@ -15,8 +15,14 @@ import {InputBoxComponent} from "./input-box/input-box.component";
 })
 
 export class AppComponent implements OnInit {
+
+    @ViewChild("slider") slider: ElementRef | undefined;
+
+    time: number = 0;
     nodes: NodeGraph[] = [];
     links: Link[] = [];
+
+    dataJson: Observable<any> = new Observable;
     mapNodes: Map<string, NodeGraph> = new Map<string, NodeGraph>();
     defaultData = "{\n" +
         "    \"nodes\": [\n" +
@@ -35,19 +41,14 @@ export class AppComponent implements OnInit {
         "        }]\n" +
         "}\n";
 
-    dataJson: string = "";
-    ngOnInit(){}
-    ngOnDestroy() {
+    dataJsonString: string = "";
 
-    }
-
-    constructor(httpService: HttpService, private cd: ChangeDetectorRef) {
+    constructor(private httpService: HttpService, private cd: ChangeDetectorRef) {
         const N = 3
-
         /** constructing the nodes array */
-        // for (let i = 1; i <= N; i++) {
-        //     this.nodes.push(new NodeGraph(String((i))));
-        // }
+        for (let i = 1; i <= N; i++) {
+            this.nodes.push(new NodeGraph(String(i), this.nodes.length));
+        }
         // // this.nodes.push(new NodeGraph("1"));
         // // this.nodes.push(new NodeGraph("2"));
         // console.log("soak node ",   this.nodes);
@@ -58,6 +59,12 @@ export class AppComponent implements OnInit {
 
     }
 
+    ngOnInit() {
+    }
+
+    ngOnDestroy() {
+
+    }
 
     parsing(data: string) {
         let objJson = JSON.parse(data);
@@ -65,14 +72,16 @@ export class AppComponent implements OnInit {
             const dataCopy = objJson[event];
             for (let key in dataCopy){
                 if (event == "nodes") {
-                    this.mapNodes.set(dataCopy[key].id, new NodeGraph(dataCopy[key].id, this.cd))
+                    this.mapNodes.set(dataCopy[key].id, new NodeGraph(dataCopy[key].id, this.nodes.length))
                 } else if (event == "links") {
                     let source = this.mapNodes.get(dataCopy[key].source);
                     let target = this.mapNodes.get(dataCopy[key].target);
                     if (source && target) {
-                        this.links.push(new Link(source, target, dataCopy[key].value, dataCopy[key].time));
-                        source.linkCount++;
-                        target.linkCount++;
+                        if (Number(dataCopy[key].time) === Number(this.time)) {
+                            this.links.push(new Link(source, target, dataCopy[key].value, dataCopy[key].time));
+                            source.linkCount++;
+                            target.linkCount++;
+                        }
                     }
                 }
             }
@@ -80,16 +89,18 @@ export class AppComponent implements OnInit {
         this.mapNodes.forEach((key, value) => {
             this.nodes.push(key);
         });
-        console.log("soak n", this.nodes)
     }
 
     onSubmit() {
+        console.log( this.nodes)
         this.nodes = [];
         this.links = [];
+        this.time = 1;
+        if (this.slider) {
+            this.time = this.slider.nativeElement.value;
+        }
         this.mapNodes = new Map<string, NodeGraph>();
-        console.log("soak");
-        this.dataJson = document.forms[0]['text_area_name'].value;
-        this.parsing(this.dataJson);
-        this.cd.detectChanges();
+        this.dataJsonString = document.forms[0]['text_area_name'].value;
+        this.parsing(this.dataJsonString);
     }
 }
