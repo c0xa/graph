@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
     @ViewChild("slider") slider: ElementRef | undefined;
 
-    time: number = 0;
+    time: number = 1;
     nodes: NodeGraph[] = [];
     links: Link[] = [];
 
