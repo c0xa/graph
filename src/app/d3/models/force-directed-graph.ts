@@ -17,14 +17,12 @@ export class ForceDirectedGraph {
     public links: Link[] = [];
 
     constructor(nodes: NodeGraph[], links: Link[], options: { width: number, height: number }) {
-        console.log("ForceDirectedGraph");
         this.nodes = nodes;
         this.links = links;
         this.initSimulation(options);
     }
 
     connectNodes(source: NodeGraph, target: NodeGraph, value: number, time: number) {
-        console.log("connectNodes")
         let link;
 
         // if (!this.nodes[source] || !this.nodes[target]) {
@@ -40,7 +38,6 @@ export class ForceDirectedGraph {
     }
 
     initNodes() {
-        console.log("initNodes")
         if (!this.simulation) {
           throw new Error('simulation was not initialized yet');
         }
@@ -49,7 +46,6 @@ export class ForceDirectedGraph {
     }
 
     initLinks() {
-        console.log("initLinks")
         if (!this.simulation) {
           throw new Error('simulation was not initialized yet');
         }
@@ -62,7 +58,6 @@ export class ForceDirectedGraph {
         }
 
     initSimulation(options: { width: number, height: number }) {
-        console.log("init similation")
         if (!options || !options.width || !options.height) {
             throw new Error('missing options when initializing simulation');
         }

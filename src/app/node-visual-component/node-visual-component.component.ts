@@ -57,7 +57,6 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
 
     subscribing() {
         this.subscription = this.graph.ticker.pipe(takeUntil(this.notifier)).subscribe(() => {
-            console.log("change")
             this.ref.markForCheck();
         });
     }
@@ -73,9 +72,11 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
     }
 
     get options() {
+        const innerWidth = (window.innerWidth * 0.4) > 300 ? (window.innerWidth * 0.4) : 300;
+        const innerHeight = (window.innerHeight * 0.45) > 200 ? (window.innerHeight * 0.45) : 200;
         return this._options = {
-            width: window.innerWidth,
-            height: window.innerHeight - 300
+            width: innerWidth,
+            height: innerHeight
         };
     }
 
