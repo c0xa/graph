@@ -96,12 +96,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: end;
-
-    width: 100%;
-    height: 15vh;
-    backdrop-filter: blur(10px);
-    background-color: @background;
     &__image {
+        position: fixed;
+
+        bottom: 0;
         width: @size-image-medium;
         height: @size-image-medium;
 
@@ -114,6 +112,7 @@
         }
 
         &.image-message {
+            right: @indent-big + @indent-big;
             background-image: url("../assets/message.svg");
         }
     }
@@ -253,3 +252,30 @@ input[type="range"]::-ms-track {
     border: none;
     background: transparent;
 }
+
+@media screen and (max-width: 600px) {
+    .header, .content {
+        width: 600px;
+    }
+    .header {
+        height: 100px;
+    }
+
+    .content {
+        height: 700px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .header, .content, .footer {
+        width: 600px;
+    }
+    .header {
+        height: 150px;
+    }
+
+    .content {
+        height: 600px;
+    }
+}
+
