@@ -10,7 +10,7 @@ import {
 
 import {D3Service, ForceDirectedGraph, Link, NodeGraph} from "../d3";
 import {Observable, Subject, Subscription} from "rxjs";
-import {take} from "rxjs/operators";
+import {take, takeUntil} from "rxjs/operators";
 
 @Component({
     selector: 'app-node-visual-component',
@@ -27,7 +27,8 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
     subscription: Subscription = new Subscription();
     observable: Observable<any> = new Observable<any>();
     notifier = new Subject();
-    @HostListener('window:resize')
+
+    @HostListener('resize')
     onResize() {
         this.graph.initSimulation(this.options);
     }
@@ -55,12 +56,14 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
     }
 
     subscribing() {
-        this.subscription = this.graph.ticker.pipe(take(100)).subscribe(() => {
+        this.subscription = this.graph.ticker.pipe(takeUntil(this.notifier)).subscribe(() => {
+            console.log("change")
             this.ref.markForCheck();
         });
     }
 
     unsubscribing() {
+        this.notifier.next();
         this.subscription.unsubscribe()
     }
 

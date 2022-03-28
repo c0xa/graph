@@ -1,11 +1,55 @@
-<form (submit)="onSubmit()" class="form">
-    <textarea class="textarea" name="text_area_name" id="jsonData">{{defaultData}}</textarea>
-    <input name="player" type="range" min="1" max="10" value="5" class="slider" #slider>
-    <button title="start" type="submit">start</button>
-</form>
+<header class="header">
+    <div class="image header__image">
+        <div class="image-logo"></div>
+    </div>
+    <div class="label-logo header__label">
+        <h1>Graph</h1>
+    </div>
+</header>
+<div class="content">
+    <nav class="navigation content__navigation">
+        <section class="section-data section navigation__section" (click)="changeMain(1)">
+            <h1 class="section__label">Data</h1>
+        </section>
+        <section class="section-animation navigation__section" (click)="changeMain(2)">
+            <h1 class="section__label">Animation</h1>
+        </section>
+        <section class="section-setting navigation__section" (click)="changeMain(3)">
+            <h1 class="section__label">Setting</h1>
+        </section>
+    </nav>
+    <main class="content__main">
+        <div *ngIf="this.state == 1">
+            <form (submit)="onSubmit()" class="form">
+                <textarea class="textarea" name="text_area_name" id="jsonData">{{defaultData}}</textarea>
+                <input name="player" type="range" min="1" max="10" value="5" class="slider" #slider>
+                <button title="start" type="submit">start</button>
+            </form>
+        </div>
 
-<div>{{this.time}}</div>
-<app-node-visual-component
-    [nodes]="nodes"
-    [links]="links"
-></app-node-visual-component>
+        <div *ngIf="this.state == 2">
+            <app-node-visual-component
+                [nodes]="nodes"
+                [links]="links"
+            ></app-node-visual-component>
+        </div>
+    </main>
+</div>
+<footer class="footer">
+    <a href="https://github.com/c0xa" class="image-link footer__image">
+    </a>
+    <a href="https://github.com/c0xa" class="image-message footer__image">
+    </a>
+</footer>
+
+<!--<form (submit)="onSubmit()" class="form">-->
+<!--    <textarea class="textarea" name="text_area_name" id="jsonData">{{defaultData}}</textarea>-->
+<!--    <input name="player" type="range" min="1" max="10" value="5" class="slider" #slider>-->
+<!--    <button title="start" type="submit">start</button>-->
+<!--</form>-->
+
+<!--<div>{{this.time}}</div>-->
+<!--<app-node-visual-component-->
+<!--    [nodes]="nodes"-->
+<!--    [links]="links"-->
+<!--&gt;</app-node-visual-component>-->

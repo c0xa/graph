@@ -26,6 +26,10 @@ export class NodeGraph implements d3.SimulationNodeDatum {
         return 50 * this.normal() + 10;
     }
 
+    get link() {
+        return this.linkCount;
+    }
+
     get fontSize() {
         return (30 * this.normal() + 10) + 'px';
     }

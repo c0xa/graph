@@ -10,7 +10,7 @@
                     stroke="black">
                 </line>
             </g>
-            <g *ngFor="let node of nodes">
+            <g *ngFor="let node of nodes" [draggableNode]="node" [draggableInGraph]="graph">
                 <g [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
                     <circle class="node"
                             [attr.fill]="node.color"

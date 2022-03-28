@@ -1,9 +1,13 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import {Injectable, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import * as d3 from 'd3';
 import { NodeGraph, Link, ForceDirectedGraph } from './models';
+import {NodeVisualComponentComponent} from "../node-visual-component/node-visual-component.component";
+import {take} from "rxjs/operators";
+import {Observable, Subscription} from "rxjs";
 
 @Injectable()
 export class D3Service {
+
     /** This service will provide methods to enable user interaction with elements
     * while maintaining the d3 simulations physics
     */
@@ -30,29 +34,29 @@ export class D3Service {
         applyDraggableBehaviour(element: Element, node: NodeGraph, graph: ForceDirectedGraph) {
             const d3element: d3.Selection<any, unknown, null, undefined> = d3.select(element);
 
-            function started(event: any) {
-                const circle = d3.select(element).classed("dragging", true);
-
-                event.on("drag", dragged).on("end", ended);
-
-                function dragged(event: any, d: any) {
-                    console.log("soak x", event.x);
-                    console.log("soak x", event.y)
-                    node.fx = event.x;
-                    node.fy = event.y;
-                }
-
-                function ended() {
-                    circle.classed("dragging", false);
-                    console.log("soak end");
+            function dragstarted(event: any) {
+                d3element.raise().classed("active", true);
+                if (!event.active) {
+                    graph.simulation.alphaTarget(0.9).restart();
                 }
             }
 
-            d3element.call(d3.drag()
-              .on('start', started));
-        }
+            function dragged(event: any) {
+                d3element.attr("fx", node.fx = event.x).attr("fy", node.fy = event.y);
+            }
 
-        /** The interactable graph we will simulate in this article
+            function dragended(event: any) {
+                d3element.attr("fx", node.fx = null).attr("fy", node.fy = null);
+                d3element.classed("active", false);
+            }
+
+            d3element.call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended)
+            );
+        }
+    /** The interactable graph we will simulate in this article
         * This method does not interact with the document, purely physical calculations with d3
         */
         getForceDirectedGraph(nodes: NodeGraph[], links: Link[], options: { width: number, height: number }) {

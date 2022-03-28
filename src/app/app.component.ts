@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {InputBoxComponent} from "./input-box/input-box.component";
+import {scaleRadial} from "d3";
 
 
 @Component({
@@ -21,6 +22,8 @@ export class AppComponent implements OnInit {
     time: number = 0;
     nodes: NodeGraph[] = [];
     links: Link[] = [];
+
+    state: number = 2;
 
     dataJson: Observable<any> = new Observable;
     mapNodes: Map<string, NodeGraph> = new Map<string, NodeGraph>();
@@ -89,6 +92,23 @@ export class AppComponent implements OnInit {
         this.mapNodes.forEach((key, value) => {
             this.nodes.push(key);
         });
+    }
+
+    changeMain(state: number) {
+        if (state !== this.state) {
+            this.state = state;
+            switch (state) {
+                case 1:
+                    console.log("1")
+                    break;
+                case 2:
+                    console.log("2")
+                    break;
+                case 3:
+                    console.log("3")
+                    break;
+            }
+        }
     }
 
     onSubmit() {
