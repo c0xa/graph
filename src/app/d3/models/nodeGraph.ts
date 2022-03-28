@@ -1,4 +1,3 @@
-import APP_CONFIG from '../../../../../angular-d3-graph-example/src/app/app.config';
 
 export class NodeGraph implements d3.SimulationNodeDatum {
     // optional - defining optional implementation properties - required for relevant typing assistance
@@ -19,7 +18,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     }
 
     normal = () => {
-        return Math.sqrt(this.linkCount / APP_CONFIG.N);
+        return Math.sqrt(this.linkCount);
     }
 
     get r() {
@@ -32,10 +31,5 @@ export class NodeGraph implements d3.SimulationNodeDatum {
 
     get fontSize() {
         return (30 * this.normal() + 10) + 'px';
-    }
-
-    get color() {
-        let index = Math.floor(APP_CONFIG.SPECTRUM.length * this.normal());
-        return APP_CONFIG.SPECTRUM[index];
     }
 }
