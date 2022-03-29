@@ -21,7 +21,7 @@
     <main class="main content__main">
         <div *ngIf="this.state == 1" class="main-data">
             <form (submit)="onSubmitData()" class="form-data main-data__form-data">
-                <textarea class="textarea" class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>
+                <textarea class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>
                 <button title="start" class="form-data__button" type="submit"></button>
             </form>
         </div>
@@ -33,7 +33,7 @@
                 class="visualization"
             ></app-node-visual-component>
             <form (submit)="onSubmitTime()" class="visualization-form">
-                <input type="range" min="1" max="10"  oninput="rangenumber.value=value" #slider [attr.value]="time"/>
+                <input type="range" min="1" max="10" id="range" oninput="rangenumber.value=value" #slider [attr.value]="time"/>
                 <input type="number" id="rangenumber" min="1" max="10" [attr.value]="time" oninput="range.value=value">
                 <button class="form-data__button" type="submit"></button>
             </form>
