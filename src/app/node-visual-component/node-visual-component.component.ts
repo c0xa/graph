@@ -57,7 +57,6 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
 
     subscribing() {
         this.subscription = this.graph.ticker.pipe(takeUntil(this.notifier)).subscribe(() => {
-            console.log("change")
             this.ref.markForCheck();
         });
     }
