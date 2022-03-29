@@ -1,36 +1,70 @@
+@background: #252B40;
+@background-dark: #252B40;
+@background-blue: #0d324d;
+@color-purple: #7f5a83;
+
+@border-dark: #003d69;
+
+@color-font: rgb(255, 255, 255);
+@color-font-light: #bfc0e3;
+
+@color-shadow: rgba(255, 243, 243, 0.58, 18%);
+
+@indent-big: 40px;
+@indent-medium: 30px;
+@indent-small: 20px;
+
+@font-size-big: 20px;
+
+@size-image-big: 80px;
+@size-image-medium: 50px;
+
 .link {
     stroke-width: 0.25;
-    stroke: rgb(222,237,250);
-    border: 1px solid black;
+    stroke: @color-font-light;
+    border: 1px solid @background-blue;
     width: 600px;
     height: 600px;
 }
+
 .node {
-    width: 100px;
-
-    height: 100px;
     cursor: pointer;
-    transition: stroke-width 0.1s ease-out,
-    fill 0.1s ease-out,
-    stroke 0.1s ease-out;
+    &__svg {
+        width: 100px;
 
-    stroke: white;
-    stroke-width: 0.25;
+        height: 100px;
+        transition: stroke-width 0.1s ease-out,
+        fill 0.1s ease-out,
+        stroke 0.1s ease-out;
+        fill: @color-font-light;
+        stroke: white;
+        stroke-width: 0.25;
+    }
+
+    &__text {
+        text-anchor: middle;
+        alignment-baseline: central;
+        font-weight: 300;
+        fill: @background-blue;
+    }
 }
 
-.node__text {
-    text-anchor: middle;
-    alignment-baseline: central;
-    font-weight: 300;
-    fill: white;
+
+.visualization-panel {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    background-color: @color-purple;
+    background-image: linear-gradient(315deg, @background 0%, @background-blue 74%);
+
+    border: 1px solid @color-font-light;
+    margin-top: @indent-small;
 }
 
-.panel {
-    background-color: lightpink;
-    border: 1px solid black;
-}
+.svg-graph {
 
-
-.svg {
-    border: 1px solid black;
 }

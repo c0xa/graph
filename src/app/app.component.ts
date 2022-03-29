@@ -3,23 +3,20 @@ import * as d3 from 'd3';
 import {HttpService} from "./logic/models/HttpService";
 import {Link, NodeGraph} from "./d3";
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs/operators";
-import {InputBoxComponent} from "./input-box/input-box.component";
 import {scaleRadial} from "d3";
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.less']
 })
 
 export class AppComponent implements OnInit {
 
     @ViewChild("slider") slider: ElementRef | undefined;
 
-    time: number = 0;
+    time: number = 1;
     nodes: NodeGraph[] = [];
     links: Link[] = [];
 
@@ -27,6 +24,8 @@ export class AppComponent implements OnInit {
 
     dataJson: Observable<any> = new Observable;
     mapNodes: Map<string, NodeGraph> = new Map<string, NodeGraph>();
+    allLinks: Link[] = [];
+
     defaultData = "{\n" +
         "    \"nodes\": [\n" +
         "        {\n" +
@@ -44,14 +43,14 @@ export class AppComponent implements OnInit {
         "        }]\n" +
         "}\n";
 
-    dataJsonString: string = "";
+    dataJsonString: string = this.defaultData;
 
-    constructor(private httpService: HttpService, private cd: ChangeDetectorRef) {
+    constructor() {
         const N = 3
         /** constructing the nodes array */
-        for (let i = 1; i <= N; i++) {
-            this.nodes.push(new NodeGraph(String(i), this.nodes.length));
-        }
+        // for (let i = 1; i <= N; i++) {
+        //     this.nodes.push(new NodeGraph(String(i), this.nodes.length));
+        // }
         // // this.nodes.push(new NodeGraph("1"));
         // // this.nodes.push(new NodeGraph("2"));
         // console.log("soak node ",   this.nodes);
@@ -80,6 +79,7 @@ export class AppComponent implements OnInit {
                     let source = this.mapNodes.get(dataCopy[key].source);
                     let target = this.mapNodes.get(dataCopy[key].target);
                     if (source && target) {
+                        this.allLinks.push(new Link(source, target, dataCopy[key].value, dataCopy[key].time))
                         if (Number(dataCopy[key].time) === Number(this.time)) {
                             this.links.push(new Link(source, target, dataCopy[key].value, dataCopy[key].time));
                             source.linkCount++;
@@ -94,33 +94,42 @@ export class AppComponent implements OnInit {
         });
     }
 
+    getLinkWithTime() {
+        this.links = [];
+        this.allLinks.forEach((key) => {
+            let source = key.source;
+            let target = key.target;
+            if (Number(key.time) === Number(this.time)) {
+                this.links.push(key);
+                source.linkCount++;
+                target.linkCount++;
+            }
+        });
+    }
+
     changeMain(state: number) {
         if (state !== this.state) {
             this.state = state;
-            switch (state) {
-                case 1:
-                    console.log("1")
-                    break;
-                case 2:
-                    console.log("2")
-                    break;
-                case 3:
-                    console.log("3")
-                    break;
-            }
         }
     }
 
-    onSubmit() {
-        console.log( this.nodes)
+    onSubmitData() {
         this.nodes = [];
         this.links = [];
-        this.time = 1;
         if (this.slider) {
             this.time = this.slider.nativeElement.value;
         }
         this.mapNodes = new Map<string, NodeGraph>();
-        this.dataJsonString = document.forms[0]['text_area_name'].value;
+        this.allLinks = [];
+        this.dataJsonString = document.forms[0]['textarea'].value;
         this.parsing(this.dataJsonString);
+    }
+
+    onSubmitTime() {
+        this.mapNodes = new Map<string, NodeGraph>();
+        if (this.slider) {
+            this.time = this.slider.nativeElement.value;
+        }
+        this.getLinkWithTime()
     }
 }
