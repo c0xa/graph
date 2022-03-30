@@ -46,6 +46,7 @@
     display: flex;
     flex-direction: row;
 
+    gap: 50px;
     width: 100%;
     height: 70vh;
 
@@ -106,13 +107,14 @@
         background-size: @size-image-medium @size-image-medium;
 
         cursor: pointer;
-        margin: @indent-big;
+        margin: @indent-medium;
         &.image-link {
+            left: 0;
             background-image: url("../assets/info.svg");
         }
 
         &.image-message {
-            right: @indent-big + @indent-big;
+            right: 0;
             background-image: url("../assets/message.svg");
         }
     }
@@ -122,18 +124,14 @@
     width: 80%;
     display: flex;
 
-    align-items: self-start;
-    justify-content: center;
     &-data {
         width: 80%;
         height: 50vh;
     }
     &-visualization {
         display: flex;
-
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
+        align-self: center;
     }
 }
 

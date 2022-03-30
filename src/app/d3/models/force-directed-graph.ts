@@ -70,7 +70,7 @@ export class ForceDirectedGraph {
                                 .force('collide',
                                 d3.forceCollide()
                                 .strength(FORCES.COLLISION)
-                                .radius((d: any) => d['link'] === 0 ? d['r'] + 5 : d['link'] + 200).
+                                .radius((d: any) => d['linkCount'] === 0 ? d['r'] + 5 : d['linkCount'] + 200).
                                 iterations(2)
                                 );
 

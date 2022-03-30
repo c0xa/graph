@@ -6,18 +6,27 @@ import {Link, NodeGraph} from "../../d3";
 
 @Injectable()
 export class HttpService {
-    fileName: string = "assets/materials.json";
-    // dataJson: Observable<any>;
+    fileName: string = "assets/data2.json";
+    data: string = ""
+
+    dataJson: Observable<any>;
     private links: Link[] = [];
     private nodeGraph: NodeGraph[] = [];
     products: any = [];
     constructor(private http: HttpClient) {
-        // this.dataJson = this.http.get(this.fileName)
+        this.dataJson = this.http.get(this.fileName)
         // console.log(" this.dataJson",  this.dataJson)
 
         // this.http.get(this.fileName).pipe(map(data => {})).subscribe(result => {
         //     console.log(result);
         // });
+        console.log("data 1");
+
+        this.dataJson.pipe(map((data:any)=> {
+            console.log(data);
+            console.log("data");
+            this.data = data;
+        }));
         // this.http.get(this.fileName).subscribe(data =>{
         //     console.log("data soak", data);
         //     this.products = data;
@@ -25,7 +34,7 @@ export class HttpService {
     }
 
     getData(){
-        return this.http.get(this.fileName);
+        return this.data;
     }
 
     // getNodes(): void {
