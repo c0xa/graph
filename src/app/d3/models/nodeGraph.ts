@@ -22,14 +22,21 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     }
 
     get r() {
-        return 50 * this.normal() + 10;
+        const normal = this.normal();
+        return normal === 0 ? 40 : 50 * normal + 10;
     }
 
     get link() {
         return this.linkCount;
     }
 
+    get color() {
+        console.log("soak color", this.normal())
+        return "rgba(255,165,0,0.8)";
+    }
+
     get fontSize() {
-        return (30 * this.normal() + 10) + 'px';
+        const normal = this.normal();
+        return normal === 0 ? 30 + 'px': 30 * normal + 10 + 'px';
     }
 }
