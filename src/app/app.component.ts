@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     nodes: NodeGraph[] = [];
     links: Link[] = [];
 
-    state: number = 2;
+    isVisualization: boolean = false;
 
     dataJson: Observable<any> = new Observable;
     mapNodes: Map<string, NodeGraph> = new Map<string, NodeGraph>();
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
         // this.links.push(new Link(this.nodes[0], this.nodes[1], 0, 0));
         // this.nodes[0].linkCount++;
         // this.nodes[1].linkCount++;
-        console.log(httpService.getData())
+        // console.log(httpService.getData())
         this.parsing(this.defaultData);
     }
 
@@ -95,13 +95,8 @@ export class AppComponent implements OnInit {
         });
     }
 
-    changeMain(state: number) {
-        if (state !== this.state) {
-            this.state = state;
-        }
-    }
-
     onSubmitData() {
+        this.isVisualization = true
         this.nodes = [];
         this.links = [];
         if (this.slider) {
@@ -119,5 +114,10 @@ export class AppComponent implements OnInit {
             this.time = this.slider.nativeElement.value;
         }
         this.getLinkWithTime()
+    }
+
+    isExit() {
+        this.isVisualization = false;
+        console.log("exit")
     }
 }

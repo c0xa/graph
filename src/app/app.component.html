@@ -1,48 +1,40 @@
-<header class="header">
-    <div class="image header__image">
-        <div class="image-logo"></div>
-    </div>
-    <div class="label-logo header__label">
-        <h1>Graph</h1>
-    </div>
-</header>
-<div class="content">
-    <nav class="navigation content__navigation">
-        <section class="section-data section navigation__section" (click)="changeMain(1)">
-            <h1 class="section__label">Data</h1>
-        </section>
-        <section class="section-animation navigation__section" (click)="changeMain(2)">
-            <h1 class="section__label">Animation</h1>
-        </section>
-        <section class="section-setting navigation__section" (click)="changeMain(3)">
-            <h1 class="section__label">Setting</h1>
-        </section>
-    </nav>
-    <main class="main content__main">
-        <div *ngIf="this.state == 1" class="main-data">
-            <form (submit)="onSubmitData()" class="form-data main-data__form-data">
-                <textarea class="textarea" class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>
-                <button title="start" class="form-data__button" type="submit"></button>
-            </form>
+<div class="main-page" this.isVisualization [attr.hidden]="this.isVisualization ? 'true' : null">
+    <header class="header">
+        <div class="image header__image">
+            <div class="image-logo"></div>
         </div>
-
-        <div *ngIf="this.state == 2" class="main-visualization">
-            <app-node-visual-component
-                [nodes]="nodes"
-                [links]="links"
-                class="visualization"
-            ></app-node-visual-component>
-            <form (submit)="onSubmitTime()" class="visualization-form">
-                <input type="range" min="1" max="10"  id="range" oninput="rangenumber.value=value" #slider [attr.value]="time"/>
-                <input type="number" id="rangenumber" min="1" max="10" [attr.value]="time" oninput="range.value=value">
-                <button class="form-data__button" type="submit"></button>
-            </form>
+        <div class="label-logo header__label">
+            <h1>Graph</h1>
         </div>
-    </main>
+    </header>
+    <div class="content">
+        <main class="main content__main">
+            <div class="main-data">
+                <form (submit)="onSubmitData()" class="form-data main-data__form-data">
+                    <textarea class="textarea" class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>
+                    <button title="Go visualization" class="form-data__button" type="submit"></button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <a href="https://github.com/c0xa" class="image-link footer__image">
+        </a>
+        <a href="https://github.com/c0xa" class="image-message footer__image">
+        </a>
+    </footer>
 </div>
-<footer class="footer">
-    <a href="https://github.com/c0xa" class="image-link footer__image">
-    </a>
-    <a href="https://github.com/c0xa" class="image-message footer__image">
-    </a>
-</footer>
+
+<div *ngIf="this.isVisualization" class="main-visualization">
+    <svg class="main-visualization__close" (click)="isExit()"></svg>
+    <app-node-visual-component
+        [nodes]="nodes"
+        [links]="links"
+        class="visualization"
+    ></app-node-visual-component>
+    <form (submit)="onSubmitTime()" class="visualization-form">
+        <input type="range" min="1" max="10"  id="range" oninput="rangenumber.value=value" #slider [attr.value]="time"/>
+        <input type="number" id="rangenumber" min="1" max="10" [attr.value]="time" oninput="range.value=value">
+        <button class="form-data__button" type="submit"></button>
+    </form>
+</div>

@@ -27,7 +27,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     }
 
     get color() {
-        console.log("soak color", this.normal())
+        // console.log("soak color", this.normal())
         return "rgba(255,165,0,0.8)";
     }
 
