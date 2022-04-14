@@ -66,13 +66,21 @@ export class ForceDirectedGraph {
         if (!this.simulation) {
             const ticker = this.ticker;
 
+            // this.simulation = d3.forceSimulation()
+            //                     .force('collide',
+            //                     d3.forceCollide()
+            //                     .strength(FORCES.COLLISION)
+            //                     .radius((d: any) => d['linkCount'] === 0 ? d['r'] + 5 : d['linkCount'] + 200).
+            //                     iterations(2)
+            //                     );
+
             this.simulation = d3.forceSimulation()
-                                .force('collide',
-                                d3.forceCollide()
-                                .strength(FORCES.COLLISION)
-                                .radius((d: any) => d['linkCount'] === 0 ? d['r'] + 5 : d['linkCount'] + 200).
-                                iterations(2)
-                                );
+                .force('charge',
+                    d3.forceCollide()
+                        .strength(FORCES.CHARGE)
+                        .radius((d: any) => 500).
+                    iterations(1)
+                );
 
             // Connecting the d3 ticker to an angular event emitter
             this.simulation.on('tick', function () {

@@ -23,6 +23,7 @@ export class D3Service {
 
         const zoomed = () => {
             const transform = d3.zoomTransform(containerElement);
+            console.log("transform.k", transform.k)
             container.attr('transform', 'translate(' + transform.x + ',' + transform.y + ') scale(' + transform.k + ')');
         }
 
@@ -57,10 +58,11 @@ export class D3Service {
             );
         }
     /** The interactable graph we will simulate in this article
-        * This method does not interact with the document, purely physical calculations with d3
-        */
-        getForceDirectedGraph(nodes: NodeGraph[], links: Link[], options: { width: number, height: number }) {
-            const sg = new ForceDirectedGraph(nodes, links, options);
-            return sg;
-        }
+    * This method does not interact with the document, purely physical calculations with d3
+    */
+    getForceDirectedGraph(nodes: NodeGraph[], links: Link[], options: { width: number, height: number }) {
+        const sg = new ForceDirectedGraph(nodes, links, options);
+        console.log("start")
+        return sg;
+    }
 }

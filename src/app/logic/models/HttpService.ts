@@ -20,11 +20,11 @@ export class HttpService {
         // this.http.get(this.fileName).pipe(map(data => {})).subscribe(result => {
         //     console.log(result);
         // });
-        console.log("data 1");
+        // console.log("data 1");
 
         this.dataJson.pipe(map((data:any)=> {
-            console.log(data);
-            console.log("data");
+            // console.log(data);
+            // console.log("data");
             this.data = data;
         }));
         // this.http.get(this.fileName).subscribe(data =>{

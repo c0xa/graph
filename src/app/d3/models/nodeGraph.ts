@@ -26,13 +26,13 @@ export class NodeGraph implements d3.SimulationNodeDatum {
         return normal === 0 ? 40 : 50 * normal + 10;
     }
 
-    get link() {
-        return this.linkCount;
+    get color() {
+        // console.log("soak color", this.normal())
+        return "rgba(255,165,0,0.8)";
     }
 
-    get color() {
-        console.log("soak color", this.normal())
-        return "rgba(255,165,0,0.8)";
+    get link() {
+        return this.linkCount;
     }
 
     get fontSize() {
