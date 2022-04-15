@@ -33,23 +33,25 @@ export class AppComponent implements OnInit {
     count: number = 0;
     dataJsonString: string = "";
     animationData: string[] = [];
+    subscriptionText: any;
+    subscriptionAnimation: any;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
 
-        const SubscriptionText = httpService.getData().subscribe((data: string) => {
+        this.subscriptionText = httpService.getData().subscribe((data: string) => {
             this.dataJsonString = data;
             this.parsing(this.dataJsonString);
         });
 
-        const SubscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
+        this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
             this.animationData = data.split("\r");
         });
 
-        setTimeout(() => {
-            SubscriptionText.unsubscribe();
-            // SubscriptionAnimation.unsubscribe();
-        }, 200);
+        // setTimeout(() => {
+        //     SubscriptionText.unsubscribe();
+        //     // SubscriptionAnimation.unsubscribe();
+        // }, 200);
 
     }
 
@@ -57,6 +59,8 @@ export class AppComponent implements OnInit {
     }
 
     ngOnDestroy() {
+        this.subscriptionText.unsubscribe();
+        this.subscriptionAnimation.unsubscribe();
 
     }
 
@@ -110,7 +114,7 @@ export class AppComponent implements OnInit {
             const rowAnimation = this.animationData[this.count].split(",");
             for (let column = 0; column < rowAnimation.length; column++) {
                 const columnAnimation = rowAnimation[column].trim();
-                this.nodes[column].setColorAnimation(columnAnimation)
+                this.nodes[column]?.setColorAnimation(columnAnimation)
             }
         }
     }
