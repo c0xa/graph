@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
 
         setTimeout(() => {
             SubscriptionText.unsubscribe();
-            SubscriptionAnimation.unsubscribe();
+            // SubscriptionAnimation.unsubscribe();
         }, 200);
 
     }
@@ -106,11 +106,12 @@ export class AppComponent implements OnInit {
         if (this.slider) {
             this.count = this.slider.nativeElement.value;
         }
-
-        const rowAnimation = this.animationData[this.count].split(",");
-        for (let column = 0; column < rowAnimation.length; column++) {
-            const columnAnimation = rowAnimation[column].trim();
-            this.nodes[column].setColorAnimation(columnAnimation)
+        if (this.animationData) {
+            const rowAnimation = this.animationData[this.count].split(",");
+            for (let column = 0; column < rowAnimation.length; column++) {
+                const columnAnimation = rowAnimation[column].trim();
+                this.nodes[column].setColorAnimation(columnAnimation)
+            }
         }
     }
 
@@ -129,7 +130,7 @@ export class AppComponent implements OnInit {
     // }
         setInterval(() => {
             // console.log("rime", this.animationData[this.count].split(","),  this.count);
-            if (this.count < 372)  {
+            if (this.count < 372 && this.animationData)  {
                 const rowAnimation =  this.animationData[this.count].split(",");
                 for (let column = 0; column < rowAnimation.length; column++) {
                     const columnAnimation = rowAnimation[column].trim();
