@@ -23,7 +23,7 @@ export class D3Service {
 
         const zoomed = () => {
             const transform = d3.zoomTransform(containerElement);
-            console.log("transform.k", transform.k)
+            // console.log("transform.k", transform.k)
             container.attr('transform', 'translate(' + transform.x + ',' + transform.y + ') scale(' + transform.k + ')');
         }
 

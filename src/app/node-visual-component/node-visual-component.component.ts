@@ -10,7 +10,7 @@ import {
 
 import {D3Service, ForceDirectedGraph, Link, NodeGraph} from "../d3";
 import {Observable, Subject, Subscription} from "rxjs";
-import {take, takeUntil} from "rxjs/operators";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
     selector: 'app-node-visual-component',
@@ -76,7 +76,6 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
         // const innerHeight = (window.innerHeight * 0.45) > 200 ? (window.innerHeight * 0.45) : 200;
         const innerWidth = window.innerWidth < 600 ? (window.innerWidth * 0.4) : window.innerWidth - 300;
         const innerHeight = window.innerHeight < 600 ? (window.innerHeight * 0.45) : window.innerHeight - 300;
-        console.log(window.innerWidth,  window.innerHeight)
         return this._options = {
             width: window.innerWidth,
             height: window.innerHeight

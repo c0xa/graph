@@ -4,9 +4,10 @@ import { NodeGraph } from './nodeGraph';
 import * as d3 from 'd3';
 
 const FORCES = {
-  LINKS: 1 / 50,
-  COLLISION: 1,
-  CHARGE: -1
+    LINKS: 1 / 50,
+    COLLISION: 1,
+    CHARGE: -1,
+    LENGTH: 100
 }
 
 export class ForceDirectedGraph {
@@ -22,14 +23,14 @@ export class ForceDirectedGraph {
         this.initSimulation(options);
     }
 
-    connectNodes(source: NodeGraph, target: NodeGraph, value: number, time: number) {
+    connectNodes(source: NodeGraph, target: NodeGraph, value: number) {
         let link;
 
         // if (!this.nodes[source] || !this.nodes[target]) {
         //     throw new Error('One of the nodes does not exist');
         // }
 
-        link = new Link(source, target, value, time);
+        link = new Link(source, target, value);
         this.simulation.stop();
         this.links.push(link);
         this.simulation.alphaTarget(0.3).restart();
@@ -70,17 +71,26 @@ export class ForceDirectedGraph {
             //                     .force('collide',
             //                     d3.forceCollide()
             //                     .strength(FORCES.COLLISION)
-            //                     .radius((d: any) => d['linkCount'] === 0 ? d['r'] + 5 : d['linkCount'] + 200).
+            //                     .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH).
             //                     iterations(2)
             //                     );
 
             this.simulation = d3.forceSimulation()
-                .force('charge',
-                    d3.forceCollide()
-                        .strength(FORCES.CHARGE)
-                        .radius((d: any) => 500).
-                    iterations(1)
-                );
+                                .force('collide',
+                                d3.forceCollide()
+                                .strength(FORCES.COLLISION)
+                                .radius((d: any) => d['linkCount'] === 1 ? d['r'] + FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH).
+                                iterations(2)
+                                );
+
+
+            // this.simulation = d3.forceSimulation()
+            //     .force('charge',
+            //         d3.forceCollide()
+            //             .strength(FORCES.CHARGE)
+            //             .radius((d: any) => 500).
+            //         iterations(1)
+            //     );
 
             // Connecting the d3 ticker to an angular event emitter
             this.simulation.on('tick', function () {

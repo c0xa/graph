@@ -6,7 +6,10 @@ import {Link, NodeGraph} from "../../d3";
 
 @Injectable()
 export class HttpService {
-    fileName: string = "assets/data2.json";
+    // fileName: string = "assets/data2.txt";
+
+    private _fileNameJsonData: string = "assets/data2.txt";
+    private _fileNameAnimationBlock: string = "assets/animation-block.txt";
     data: string = ""
 
     dataJson: Observable<any>;
@@ -14,27 +17,20 @@ export class HttpService {
     private nodeGraph: NodeGraph[] = [];
     products: any = [];
     constructor(private http: HttpClient) {
-        this.dataJson = this.http.get(this.fileName)
-        // console.log(" this.dataJson",  this.dataJson)
+        this.dataJson = this.http.get(this._fileNameJsonData)
 
-        // this.http.get(this.fileName).pipe(map(data => {})).subscribe(result => {
-        //     console.log(result);
-        // });
-        // console.log("data 1");
 
-        this.dataJson.pipe(map((data:any)=> {
-            // console.log(data);
-            // console.log("data");
-            this.data = data;
-        }));
-        // this.http.get(this.fileName).subscribe(data =>{
-        //     console.log("data soak", data);
-        //     this.products = data;
-        // })
+        // this.dataJson.pipe(map((data:any)=> {;
+        //     this.data = data;
+        // }));
     }
 
-    getData(){
-        return this.data;
+    getData() {
+        return this.http.get(this._fileNameJsonData, {responseType: 'text'});
+    }
+
+    getDataAnimation() {
+        return this.http.get(this._fileNameAnimationBlock, {responseType: 'text'});
     }
 
     // getNodes(): void {
@@ -53,21 +49,21 @@ export class HttpService {
     // }
 
 
-    // getObservableLinks() : Observable<Link[]> {
-    //     return this.dataJson.pipe(map((data:any)=>{
-    //         let links = data["links"];
-    //         return links.map(function(link: any): Link {
-    //             return new Link(link.source, link.target, link.value, link.time);
-    //         });
-    //     }));
-    // }
-    //
-    // getObservableNodes() : Observable<NodeGraph[]> {
-    //     return this.dataJson.pipe(map((data:any)=>{
-    //         let nodes = data["nodes"];
-    //         return nodes.map(function(node: any): NodeGraph {
-    //             return new NodeGraph(node.id);
-    //         });
-    //     }));
-    // }
+    getObservableLinks() : Observable<Link[]> {
+        return this.dataJson.pipe(map((data:any)=>{
+            let links = data["links"];
+            return links.map(function(link: any): Link {
+                return new Link(link.source, link.target, link.value);
+            });
+        }));
+    }
+
+    getObservableNodes() : Observable<NodeGraph[]> {
+        return this.dataJson.pipe(map((data:any)=>{
+            let nodes = data["nodes"];
+            return nodes.map(function(node: any): NodeGraph {
+                return new NodeGraph(node.id);
+            });
+        }));
+    }
 }

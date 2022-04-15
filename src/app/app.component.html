@@ -27,14 +27,15 @@
 
 <div *ngIf="this.isVisualization" class="main-visualization">
     <svg class="main-visualization__close" (click)="isExit()"></svg>
+    <svg class="main-visualization__animation" (click)="animation()"></svg>
     <app-node-visual-component
         [nodes]="nodes"
         [links]="links"
         class="visualization"
     ></app-node-visual-component>
-    <form (submit)="onSubmitTime()" class="visualization-form">
-        <input type="range" min="1" max="10"  id="range" oninput="rangenumber.value=value" #slider [attr.value]="time"/>
-        <input type="number" id="rangenumber" min="1" max="10" [attr.value]="time" oninput="range.value=value">
-        <button class="form-data__button" type="submit"></button>
+    <form (submit)="animationStep()" class="visualization-form">
+        <input type="range" min="1" max="371"  id="range" oninput="rangenumber.value=value" #slider [attr.value]="count"/>
+        <input type="number" id="rangenumber" min="1" max="10" [attr.value]="count" oninput="range.value=value">
+<!--        <button class="form-data__button" type="submit"></button>-->
     </form>
 </div>

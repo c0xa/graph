@@ -6,12 +6,10 @@ export class Link implements d3.SimulationLinkDatum<NodeGraph> {
     source: NodeGraph;
     target: NodeGraph;
     value: number;
-    time: number;
 
-    constructor(source: NodeGraph, target: NodeGraph, value: number, time: number) {
+    constructor(source: NodeGraph, target: NodeGraph, value: number) {
         this.source = source;
         this.target = target;
         this.value = value;
-        this.time = time;
     }
 }
