@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     allLinks: Link[] = [];
 
     count: number = 0;
+    maxCount: number = 0;
     dataJsonString: string = "";
     animationData: string[] = [];
     subscriptionText: any;
@@ -45,7 +46,9 @@ export class AppComponent implements OnInit {
         });
 
         this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
-            this.animationData = data.split("\r");
+            this.animationData = data.split("\n");
+            console.log(this.animationData)
+            this.maxCount = this.animationData.length - 1;
         });
 
         // setTimeout(() => {
@@ -120,6 +123,9 @@ export class AppComponent implements OnInit {
     }
 
     animation() {
+        if (this.slider) {
+            this.count = this.slider.nativeElement.value;
+        }
         // this.count++;
         // // for (let row = 0; row < this.animationData.length; row++) {
     // // // for (let row = 105; row < 106; row++) {
@@ -132,14 +138,17 @@ export class AppComponent implements OnInit {
     //         // setTimeout(() => {},100);
     //     }
     // }
+    //     console.log("rime", this.animationData[this.count].split(","),  this.nodes);
+
         setInterval(() => {
-            // console.log("rime", this.animationData[this.count].split(","),  this.count);
+            // console.log(this.nodes)
+            // console.log("rime", thi  s.animationData[this.count].split(","),  this.count);
             if (this.count < 372 && this.animationData)  {
                 const rowAnimation =  this.animationData[this.count].split(",");
                 for (let column = 0; column < rowAnimation.length; column++) {
                     const columnAnimation = rowAnimation[column].trim();
-                    // console.log( columnAnimation)
-                    this.nodes[column].setColorAnimation(columnAnimation);
+                    // console.log( columnAnimation, this.nodes[column], column)
+                    this.nodes[column]?.setColorAnimation(columnAnimation);
                 }
                 this.count++;
             }
