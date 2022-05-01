@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
     animationData: string[] = [];
     subscriptionText: any;
     subscriptionAnimation: any;
+    interval: number = 0;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
@@ -64,6 +65,7 @@ export class AppComponent implements OnInit {
     ngOnDestroy() {
         this.subscriptionText.unsubscribe();
         this.subscriptionAnimation.unsubscribe();
+        clearInterval(this.interval);
 
     }
 
@@ -107,9 +109,11 @@ export class AppComponent implements OnInit {
 
     isExit() {
         this.isVisualization = false;
+        clearInterval(this.interval);
     }
 
     animationStep() {
+        clearInterval(this.interval);
         if (this.slider) {
             this.count = this.slider.nativeElement.value;
         }
@@ -139,8 +143,8 @@ export class AppComponent implements OnInit {
     //     }
     // }
     //     console.log("rime", this.animationData[this.count].split(","),  this.nodes);
-
-        setInterval(() => {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
             // console.log(this.nodes)
             // console.log("rime", thi  s.animationData[this.count].split(","),  this.count);
             if (this.count < 372 && this.animationData)  {
@@ -152,6 +156,6 @@ export class AppComponent implements OnInit {
                 }
                 this.count++;
             }
-        },500);
+        },200);
     }
 }

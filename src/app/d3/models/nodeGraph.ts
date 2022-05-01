@@ -10,10 +10,11 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     // index: number;
     id: string;
     linkCount: number = 0;
-    colorAnimation?: string;
+    colorAnimation: string;
 
     constructor(id: string) {
         this.id = id;
+        this.colorAnimation = "0";
         // this.index = index;
         // console.log(this.id);
     }
@@ -29,7 +30,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
 
     get color() {
         // console.log("soak color", this.normal())
-        return this.colorAnimation === "0" ?  "rgba(162,18,118,0.8)" : "rgba(145,213,85,0.8)"
+        return this.colorAnimation === "0" ?  "rgba(61,162,18,0.8)" : "rgb(217,46,60)"
     }
 
     get link() {
@@ -38,7 +39,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
 
     get fontSize() {
         const normal = this.normal();
-        return normal === 0 ? 30 + 'px': 30 * normal + 10 + 'px';
+        return normal === 0 ? 50 + 'px': 50 * normal + 10 + 'px';
     }
 
     setColorAnimation(colorAnimation: string) {

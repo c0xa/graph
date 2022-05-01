@@ -2,12 +2,12 @@
     <svg #svg [attr.width]="_options.width" [attr.height]="_options.height" class="visualization-panel__svg-graph">
         <g [zoomableOf]="svg" class="svg-graph">
             <g *ngFor="let link of links" class="svg-graph__link">
-                <line
+                <line class="link__line"
                     [attr.x1]="link.source.x"
                     [attr.y1]="link.source.y"
                     [attr.x2]="link.target.x"
                     [attr.y2]="link.target.y"
-                    stroke="#bfc0e3">
+                >
                 </line>
             </g>
             <g *ngFor="let node of nodes" [draggableNode]="node" [draggableInGraph]="graph" class="svg-graph__node">
