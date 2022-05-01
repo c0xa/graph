@@ -1,14 +1,20 @@
 <div class="main-page" this.isVisualization [attr.hidden]="this.isVisualization ? 'true' : null">
-    <header class="header">
+    <header class="header"
+            [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
         <div class="image header__image">
             <div class="image-logo"></div>
         </div>
         <div class="label-logo header__label">
             <h1>Graph</h1>
         </div>
+        <svg class="header__theme image-theme"
+             (click)="switchTheme()"
+             [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'"
+        ></svg>
     </header>
     <div class="content">
-        <main class="main content__main">
+        <main class="main content__main"
+              [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
             <div class="main-data">
                 <form (submit)="onSubmitData()" class="form-data main-data__form-data">
                     <textarea class="textarea" class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>

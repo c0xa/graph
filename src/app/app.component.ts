@@ -38,6 +38,8 @@ export class AppComponent implements OnInit {
     subscriptionAnimation: any;
     interval: number = 0;
 
+    isSwitchTheme: boolean = true;
+
     constructor(httpService: HttpService) {
         this.httpService = httpService;
 
@@ -157,5 +159,9 @@ export class AppComponent implements OnInit {
                 this.count++;
             }
         },200);
+    }
+
+    switchTheme() {
+        this.isSwitchTheme = !this.isSwitchTheme;
     }
 }

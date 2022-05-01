@@ -2,22 +2,51 @@
 
 .header {
     display: flex;
-
+    justify-items: center;
     width: 100%;
     height: 15vh;
-    background-color: @background;
-    color: @color-font-light;
-    &__image {
-        width: @size-image-big;
-        height: @size-image-big;
 
-        background-size: @size-image-big @size-image-big;
+    box-shadow: 0 4px 12px #919399;
+    .font-big-medium();
+    &.dark-theme {
+        background-color: @background-header-light;
+        color: @color-font-light;
+    }
+
+    &.light-theme {
+        background-color: @background-header-dark;
+        color: @color-font-light;
+        fill: @color-font-light;
+    }
+
+    &__image {
+        width: @size-image-medium;
+        height: @size-image-medium;
+
+        background-size: @size-image-medium @size-image-medium;
         background-image: url("../assets/themes/base/images/favicon.ico");
         margin: @indent-medium;
     }
     &__label {
-        font-size: @font-size-big;
         margin: @indent-big;
+    }
+    &__theme {
+        position: absolute;
+
+        right: 20px;
+
+        cursor: pointer;
+        margin: @indent-medium;
+        width: @size-image-medium;
+        height: @size-image-medium;
+        fill: @color-font-light;
+        background-size: @size-image-medium @size-image-medium;
+        &.dark-theme {
+            background-image: url("../assets/themes/base/images/dark-theme.svg");
+        }
+        &.light-theme {
+            background-image: url("../assets/themes/base/images/light-theme.svg");
+        }
     }
 
 }
@@ -28,7 +57,7 @@
 
     gap: 50px;
     width: 100%;
-    height: 70vh;
+    height: 75vh;
 
     background-color: @background;
     color: @color-font-light;
@@ -42,7 +71,7 @@
 
     &__main {
         width: 100%;
-        height: 80vh;
+        //height: 80vh;
         background-color: @background;
     }
 
@@ -77,14 +106,18 @@
     flex-direction: row;
     align-items: center;
     justify-content: end;
+    background-color: @background;
+    box-shadow: 0 4px 12px @color-shadow-grey;
+    height: 10vh;
+
+    fill: @color-font-dark;
     &__image {
         position: fixed;
 
         bottom: 0;
-        width: @size-image-medium;
-        height: @size-image-medium;
-
-        background-size: @size-image-medium @size-image-medium;
+        width: @size-image-small;
+        height: @size-image-small;
+        background-size: @size-image-small @size-image-small;
 
         cursor: pointer;
         margin: @indent-medium;
@@ -106,7 +139,6 @@
 
     &-data {
         width: 100%;
-        height: 80vh;
     }
     &-visualization {
         display: flex;
@@ -163,36 +195,39 @@
 
     &__textarea {
         width: 80%;
-        height: 80vh;
+        height: 60vh;
 
         max-width: 1323px;
         max-height: 573px;
 
+        border: none;
+        box-shadow: 0 4px 12px @color-shadow-grey;
         margin: @indent-small;
         background-color: @background;
-        color: @color-font-light;
-        background-image: linear-gradient(315deg, @background 0%, @background-blue 74%);
+        color: @color-font-dark;
+        background-image: @background;
+        .font-very-big-very-bold();
     }
 
     &__button {
         width: 150px;
         height: 50px;
 
-        margin: @indent-medium;
+        margin: @indent-small;
         cursor: pointer;
         border: none;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: @color-purple;
-        background-image: linear-gradient(315deg, @color-purple 0%, @background-blue 74%);
         background-size: 200% 100%;
         background-position: left;
         background-repeat: no-repeat;
+        border-radius: 10px;
         transition: 500ms;
+        box-shadow: 0 4px 12px @color-shadow-grey;
         &:before {
             content: 'Go visualization';
-            color: @color-button-background-light;
+            color: @color-font-dark;
             font-size: @font-size-big;
             position: absolute;
             display: flex;
@@ -200,16 +235,13 @@
             justify-content: center;
             width: 140px;
             height: 40px;
-            background-color: @color-button-background-light;
-            background-image: linear-gradient(315deg, @color-button-background-blue-dark 0%, @color-button-background-dark 74%);
+            background-color: @background;
+            background-image: linear-gradient(315deg, @background 0%, @background 74%);
             transition: 500ms;
         }
-        &:hover {
-            background-position: right;
-        }
-        &:hover:before {
-            color: @color-button-animation;
-        }
+        //&:hover {
+        //    background-position: right;
+        //}
         &:focus {
             outline: none;
         }
