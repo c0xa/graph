@@ -1,24 +1,4 @@
-@background: #252B40;
-@background-dark: #252B40;
-@background-blue: #0d324d;
-@color-purple: #7f5a83;
-
-@border-dark: #003d69;
-
-@color-font: rgb(255, 255, 255);
-@color-font-light: #bfc0e3;
-
-@color-shadow: rgba(255, 243, 243, 0.58, 18%);
-
-@indent-big: 40px;
-@indent-medium: 30px;
-@indent-small: 20px;
-@indent-tiny: 10px;
-
-@font-size-big: 20px;
-
-@size-image-big: 80px;
-@size-image-medium: 50px;
+@import "../assets/themes/base/styles/base.less";
 
 .header {
     display: flex;
@@ -26,13 +6,13 @@
     width: 100%;
     height: 15vh;
     background-color: @background;
-    color: @color-font;
+    color: @color-font-light;
     &__image {
         width: @size-image-big;
         height: @size-image-big;
 
         background-size: @size-image-big @size-image-big;
-        background-image: url("../assets/favicon.ico");
+        background-image: url("../assets/themes/base/images/favicon.ico");
         margin: @indent-medium;
     }
     &__label {
@@ -51,7 +31,7 @@
     height: 70vh;
 
     background-color: @background;
-    color: @color-font;
+    color: @color-font-light;
     &__navigation {
         width: 10%;
         max-width: 15%;
@@ -110,12 +90,12 @@
         margin: @indent-medium;
         &.image-link {
             left: 0;
-            background-image: url("../assets/info.svg");
+            background-image: url("../assets/themes/base/images/info.svg");
         }
 
         &.image-message {
             right: 0;
-            background-image: url("../assets/message.svg");
+            background-image: url("../assets/themes/base/images/message.svg");
         }
     }
 }
@@ -141,7 +121,7 @@
             height: @size-image-big;
 
             background-size: @size-image-big @size-image-big;
-            background-image: url("../assets/icons8-close.svg");
+            background-image: url("../assets/themes/base/images/icons8-close.svg");
             fill: @color-font-light;
 
             cursor: pointer;
@@ -156,7 +136,7 @@
             height: @size-image-big;
 
             background-size: @size-image-big @size-image-big;
-            background-image: url("../assets/icons8-close.svg");
+            background-image: url("../assets/themes/base/images/icons8-close.svg");
             fill: @color-font-light;
 
             cursor: pointer;
@@ -175,7 +155,7 @@
 .form-data {
     display: flex;
     background-color: @background;
-    color: @color-font;
+    color: @color-font-light;
     flex-direction: column;
 
     align-items: center;
@@ -190,7 +170,7 @@
 
         margin: @indent-small;
         background-color: @background;
-        color: @color-font;
+        color: @color-font-light;
         background-image: linear-gradient(315deg, @background 0%, @background-blue 74%);
     }
 
@@ -212,23 +192,23 @@
         transition: 500ms;
         &:before {
             content: 'Go visualization';
-            color: rgba(255,255,255,0.5);
-            font-size: 16px;
+            color: @color-button-background-light;
+            font-size: @font-size-big;
             position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 140px;
             height: 40px;
-            background-color: #1b2845;
-            background-image: linear-gradient(315deg, #1b2845 0%, #274060 74%);
+            background-color: @color-button-background-light;
+            background-image: linear-gradient(315deg, @color-button-background-blue-dark 0%, @color-button-background-dark 74%);
             transition: 500ms;
         }
         &:hover {
             background-position: right;
         }
         &:hover:before {
-            color: rgba(255,255,255,0.8);
+            color: @color-button-animation;
         }
         &:focus {
             outline: none;
@@ -241,14 +221,14 @@ input,
 output {
     display: inline-block;
     vertical-align: middle;
-    font-size: 1em;
+    font-size: @font-size-normal-big;
     font-family: Arial, sans-serif;
 }
 
 input[type="number"] {
     width: 40px;
     padding: 4px 5px;
-    border: 1px solid #bbb;
+    border: 1px solid @color-button-background-light;
     border-radius: 3px;
 }
 
@@ -258,7 +238,7 @@ input[type="range"] {
     height: 7px;
     border-radius: 5px;
     background-size: 70% 100%;
-    background: rgba(255, 255, 255, 0.6) @background no-repeat;
+    background: @color-button-background-light @background no-repeat;
 }
 
 input[type=range]::-webkit-slider-runnable-track  {

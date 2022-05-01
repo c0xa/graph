@@ -67,28 +67,41 @@ export class ForceDirectedGraph {
         if (!this.simulation) {
             const ticker = this.ticker;
 
+            this.simulation = d3.forceSimulation()
+                                .force('charge',
+                                d3.forceCollide()
+                                .strength(FORCES.COLLISION)
+                                .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH).
+                                iterations(1)
+                                )
+                .force('collide',
+                    d3.forceManyBody()
+                        .strength((d: any) => FORCES.CHARGE * d['r'] + 25)
+                );
+
             // this.simulation = d3.forceSimulation()
             //                     .force('collide',
             //                     d3.forceCollide()
             //                     .strength(FORCES.COLLISION)
-            //                     .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH).
+            //                     .radius((d: any) => d['linkCount'] === 1 ? d['r'] + FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH).
             //                     iterations(2)
             //                     );
-
-            this.simulation = d3.forceSimulation()
-                                .force('collide',
-                                d3.forceCollide()
-                                .strength(FORCES.COLLISION)
-                                .radius((d: any) => d['linkCount'] === 1 ? d['r'] + FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH).
-                                iterations(2)
-                                );
-
+            // this.simulation = d3.forceSimulation()
+            //     .force('charge',
+            //         d3.forceManyBody()
+            //             .strength((d: any) => FORCES.CHARGE * d['r'] + 25)
+            //     )
+            //     .force('collide',
+            //         d3.forceCollide()
+            //             .strength(FORCES.COLLISION)
+            //             .radius((d: any) => d['r'] + 25).iterations(2)
+            //     );
 
             // this.simulation = d3.forceSimulation()
             //     .force('charge',
             //         d3.forceCollide()
             //             .strength(FORCES.CHARGE)
-            //             .radius((d: any) => 500).
+            //             .radius((d: any) => 100).
             //         iterations(1)
             //     );
 
@@ -102,7 +115,7 @@ export class ForceDirectedGraph {
         }
 
         /** Updating the central force of the simulation */
-        this.simulation.force('centers', d3.forceCenter(options.width / 2, options.height / 2));
+        // this.simulation.force('centers', d3.forceCenter(options.width / 2, options.height / 2));
 
         /** Restarting the simulation internal timer */
         this.simulation.restart();

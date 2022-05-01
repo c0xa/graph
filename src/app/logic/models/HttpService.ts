@@ -8,8 +8,10 @@ import {Link, NodeGraph} from "../../d3";
 export class HttpService {
     // fileName: string = "assets/data2.txt";
 
-    private _fileNameJsonData: string = "assets/data2.txt";
-    private _fileNameAnimationBlock: string = "assets/animation-block.txt";
+    // private _fileNameJsonData: string = "assets/data/graph/data2.txt";
+
+    private _fileNameJsonData: string = "assets/data/graph/materials.json";
+    private _fileNameAnimationBlock: string = "assets/data/workload/animation-block.txt";
     data: string = ""
 
     dataJson: Observable<any>;
@@ -18,11 +20,6 @@ export class HttpService {
     products: any = [];
     constructor(private http: HttpClient) {
         this.dataJson = this.http.get(this._fileNameJsonData)
-
-
-        // this.dataJson.pipe(map((data:any)=> {;
-        //     this.data = data;
-        // }));
     }
 
     getData() {
@@ -50,7 +47,7 @@ export class HttpService {
 
 
     getObservableLinks() : Observable<Link[]> {
-        return this.dataJson.pipe(map((data:any)=>{
+        return this.dataJson.pipe(map((data:any)=> {
             let links = data["links"];
             return links.map(function(link: any): Link {
                 return new Link(link.source, link.target, link.value);
@@ -59,7 +56,7 @@ export class HttpService {
     }
 
     getObservableNodes() : Observable<NodeGraph[]> {
-        return this.dataJson.pipe(map((data:any)=>{
+        return this.dataJson.pipe(map((data:any)=> {
             let nodes = data["nodes"];
             return nodes.map(function(node: any): NodeGraph {
                 return new NodeGraph(node.id);
