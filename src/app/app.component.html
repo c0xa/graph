@@ -1,6 +1,7 @@
-<div class="main-page" this.isVisualization [attr.hidden]="this.isVisualization ? 'true' : null">
-    <header class="header"
-            [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
+<div class="main-page" this.isVisualization
+     [attr.hidden]="this.isVisualization ? 'true' : null"
+     [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
+    <header class="header">
         <div class="image header__image">
             <div class="image-logo"></div>
         </div>
@@ -9,7 +10,6 @@
         </div>
         <svg class="header__theme image-theme"
              (click)="switchTheme()"
-             [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'"
         ></svg>
     </header>
     <div class="content">

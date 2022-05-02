@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
     subscriptionAnimation: any;
     interval: number = 0;
 
-    isSwitchTheme: boolean = true;
+    //variable for switching theme; default - dark theme
+    isSwitchTheme: boolean = false;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
