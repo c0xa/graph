@@ -22,5 +22,21 @@
         fill: @color-font-light;
         background-size: @size-image-medium @size-image-medium;
     }
+}
 
+@media screen and (max-height: 800px) {
+
+    &.header__theme {
+        width: @size-image-small;
+        height: @size-image-small;
+        background-size: @size-image-small @size-image-small;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    &.header__theme {
+        width: @size-image-tiny;
+        height: @size-image-tiny;
+        background-size: @size-image-tiny @size-image-tiny;
+    }
 }

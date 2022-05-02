@@ -1,6 +1,9 @@
 <div class="visualization-panel"
-    [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">>
-    <svg #svg [attr.width]="_options.width" [attr.height]="_options.height" class="visualization-panel__svg-graph">
+    [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
+    <svg #svg
+         [attr.width]="_options.width"
+         [attr.height]="_options.height"
+         class="visualization-panel__svg-graph">
         <g [zoomableOf]="svg" class="svg-graph">
             <g *ngFor="let link of links" class="svg-graph__link">
                 <line class="link__line"

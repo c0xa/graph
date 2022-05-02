@@ -65,15 +65,27 @@ export class ForceDirectedGraph {
 
         /** Creating the simulation */
         if (!this.simulation) {
-            const ticker = this.ticker;
+            // const ticker = this.ticker;
 
+            // this.simulation = d3.forceSimulation()
+            //                     .force('charge',
+            //                     d3.forceCollide()
+            //                     .strength(FORCES.COLLISION)
+            //                     .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH)
+            //                     .iterations(1)
+            //                     )
+            //     .force("friction", d3.forceCollide())
+            //     .force('collide',
+            //         d3.forceManyBody()
+            //             .strength((d: any) => FORCES.CHARGE * d['r'] + 25)
+            //     );
             this.simulation = d3.forceSimulation()
-                                .force('charge',
-                                d3.forceCollide()
-                                .strength(FORCES.COLLISION)
-                                .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH).
-                                iterations(1)
-                                )
+                .force('charge',
+                    d3.forceCollide()
+                        .strength(FORCES.COLLISION)
+                        .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH)
+                        .iterations(1)
+                )
                 .force('collide',
                     d3.forceManyBody()
                         .strength((d: any) => FORCES.CHARGE * d['r'] + 25)
@@ -106,9 +118,7 @@ export class ForceDirectedGraph {
             //     );
 
             // Connecting the d3 ticker to an angular event emitter
-            this.simulation.on('tick', function () {
-                ticker.emit(this);
-            });
+            this.simulation.on('start');
 
             this.initNodes();
             this.initLinks();

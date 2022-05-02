@@ -30,7 +30,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
 
     get color() {
         // console.log("soak color", this.normal())
-        return this.colorAnimation === "0" ?  "rgba(61,162,18,0.8)" : "rgb(217,46,60)"
+        return this.colorAnimation === "0" ?  "rgb(61,162,18)" : "rgb(217,46,60)"
     }
 
     get link() {

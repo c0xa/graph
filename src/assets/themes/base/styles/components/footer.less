@@ -10,13 +10,12 @@
     & .image-info, .image-message {
         position: fixed;
 
-        bottom: 0;
+        bottom: @indent-tiny;
         width: @size-image-small;
         height: @size-image-small;
         background-size: @size-image-small @size-image-small;
 
         cursor: pointer;
-        margin: @indent-medium;
     }
     &-notation {
         position: fixed;
@@ -54,5 +53,14 @@
         right: 20px;
         -webkit-mask-image: url("../../images/message.svg");
         mask-image: url("../../images/message.svg");
+    }
+}
+
+@media screen and (max-height: 700px) {
+
+    .footer .image-info, .footer .image-message {
+        width: @size-image-tiny;
+        height: @size-image-tiny;
+        background-size: @size-image-tiny @size-image-tiny;
     }
 }

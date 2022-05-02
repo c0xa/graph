@@ -17,16 +17,19 @@ export class D3Service {
     applyZoomableBehaviour(svgElement: Element, containerElement: Element) {
         let svg: d3.Selection<any, unknown, null, undefined>;
         let container: d3.Selection<any, unknown, null, undefined>;
-
+        const x = 600;
+        const y = 200;
+        const k = 0.2;
         svg = d3.select(svgElement);
         container = d3.select(containerElement);
+        container.attr('transform', 'translate(' + x + ',' + y + ') scale(' + k + ')');
 
+        // var g_transform = d3.zoomIdentity.translate(x, y).scale(1);
         const zoomed = () => {
+            console.log("soak zoom");
             const transform = d3.zoomTransform(containerElement);
-            // console.log("transform.k", transform.k)
             container.attr('transform', 'translate(' + transform.x + ',' + transform.y + ') scale(' + transform.k + ')');
         }
-
         const zoom = d3.zoom().on('zoom', zoomed);
         svg.call(zoom);
     }
