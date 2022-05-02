@@ -1,47 +1,53 @@
-<div class="main-page" this.isVisualization
-     [attr.hidden]="this.isVisualization ? 'true' : null"
+<div class="main-page"
      [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
-    <header class="header">
-        <div class="image header__image">
-            <div class="image-logo"></div>
+    <div class="menu"
+         [attr.hidden]="this.isVisualization ? 'true' : null">
+        <header class="header">
+<!--            <div class="image header__image">-->
+<!--                <div class="image-logo"></div>-->
+<!--            </div>-->
+<!--            <div class="label-logo header__label">-->
+<!--                <h1>Graph</h1>-->
+<!--            </div>-->
+            <svg class="header__theme image-theme"
+                 (click)="switchTheme()"
+            ></svg>
+        </header>
+        <div class="content">
+            <main class="main content__main">
+                <div class="main-data">
+                    <form (submit)="onSubmitData()" [class.error]=isError class="form-data main-data__form-data">
+                        <div class="form-data__error"></div>
+                        <textarea class="textarea" class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>
+                        <button title="Go visualization" class="form-data__button" type="submit"></button>
+                    </form>
+                </div>
+            </main>
         </div>
-        <div class="label-logo header__label">
-            <h1>Graph</h1>
-        </div>
-        <svg class="header__theme image-theme"
-             (click)="switchTheme()"
-        ></svg>
-    </header>
-    <div class="content">
-        <main class="main content__main"
-              [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
-            <div class="main-data">
-                <form (submit)="onSubmitData()" class="form-data main-data__form-data">
-                    <textarea class="textarea" class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>
-                    <button title="Go visualization" class="form-data__button" type="submit"></button>
-                </form>
+        <footer class="footer">
+            <div class="footer-notation">
+                <svg class="image-info footer-notation__image"></svg>
             </div>
-        </main>
+            <a href="https://github.com/c0xa" class="footer-link">
+                <svg class="image-message footer-link__image"></svg>
+            </a>
+        </footer>
     </div>
-    <footer class="footer">
-        <a href="https://github.com/c0xa" class="image-link footer__image">
-        </a>
-        <a href="https://github.com/c0xa" class="image-message footer__image">
-        </a>
-    </footer>
-</div>
 
-<div *ngIf="this.isVisualization" class="main-visualization">
-    <svg class="main-visualization__close" (click)="isExit()"></svg>
-    <svg class="main-visualization__animation" (click)="animation()"></svg>
-    <app-node-visual-component
-        [nodes]="nodes"
-        [links]="links"
-        class="visualization"
-    ></app-node-visual-component>
-    <form (submit)="animationStep()" class="visualization-form">
-        <input type="range" min="1" [attr.max]="maxCount"  id="range" oninput="rangenumber.value=value" #slider [attr.value]="count"/>
-        <input type="number" id="rangenumber" min="1" max="10" [attr.value]="count" oninput="range.value=value">
-<!--        <button class="form-data__button" type="submit"></button>-->
-    </form>
+    <div *ngIf="this.isVisualization" class="main-visualization">
+        <svg class="main-visualization__image image__close" (click)="isExit()"></svg>
+        <svg class="main-visualization__image image__animation" (click)="animation()"></svg>
+        <app-node-visual-component
+            [nodes]="nodes"
+            [links]="links"
+            [switchTheme]="isSwitchTheme"
+            class="visualization"
+        ></app-node-visual-component>
+        <form (submit)="animationStep()" class="visualization-form">
+            <input type="range" min="1" [attr.max]="maxCount"  id="range" oninput="rangenumber.value=value" #slider [attr.value]="count"/>
+            <input type="number" id="rangenumber" min="1" max="10" [attr.value]="count" oninput="range.value=value">
+            <!--        <button class="form-data__button" type="submit"></button>-->
+        </form>
+    </div>
+
 </div>

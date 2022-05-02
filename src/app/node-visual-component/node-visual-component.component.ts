@@ -21,6 +21,7 @@ import {takeUntil} from "rxjs/operators";
 export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestroy {
     @Input('nodes') nodes: NodeGraph[] = [];
     @Input('links') links: Link[] = [];
+    @Input('switchTheme') isSwitchTheme: boolean = false;
 
     graph!: ForceDirectedGraph;
     _options: { width: number, height: number } = {width: 400, height: 400};

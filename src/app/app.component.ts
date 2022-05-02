@@ -10,8 +10,7 @@ import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.less']
+    templateUrl: './app.component.html'
 })
 
 export class AppComponent implements OnInit {
@@ -40,6 +39,7 @@ export class AppComponent implements OnInit {
 
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
+    isError: boolean = false;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
@@ -51,7 +51,6 @@ export class AppComponent implements OnInit {
 
         this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
             this.animationData = data.split("\n");
-            console.log(this.animationData)
             this.maxCount = this.animationData.length - 1;
         });
 
@@ -73,8 +72,17 @@ export class AppComponent implements OnInit {
     }
 
     parsing(data: string) {
-        let objJson = JSON.parse(data);
-        for(const event in objJson){
+        let objJson;
+        try {
+            objJson = JSON.parse(data);
+        } catch (e) {
+            this.isVisualization = false;
+            this.isError = true;
+            console.log("soak", e)
+            return;
+        }
+        this.isError = false;
+        for (const event in objJson){
             const dataCopy = objJson[event];
             for (let key in dataCopy){
                 if (event == "Nodes") {
