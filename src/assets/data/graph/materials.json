@@ -1,5 +1,5 @@
 {
-    "SimulationSettings":{
+    "SimulationSettings": {
         "RoutingAlgorithm":"dijkstra",
         "MultiplierThresholdToBlock":"0",
         "FractionThresholdToUnBlock":"0",

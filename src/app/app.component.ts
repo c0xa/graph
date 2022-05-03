@@ -1,11 +1,13 @@
-import {ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import * as d3 from 'd3';
+import {
+    Component,
+    ElementRef,
+    Input,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import {HttpService} from "./logic/models/HttpService";
 import {Link, NodeGraph} from "./d3";
 import {Observable} from "rxjs";
-import {scaleRadial} from "d3";
-import {Constant} from "./data";
-import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -16,8 +18,7 @@ import {HttpClient} from "@angular/common/http";
 export class AppComponent implements OnInit {
 
     @ViewChild("slider") slider: ElementRef | undefined;
-
-
+    @Input('loader') loader!: HTMLDivElement;
     httpService: HttpService;
 
     nodes: NodeGraph[] = [];
@@ -43,7 +44,6 @@ export class AppComponent implements OnInit {
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
-
         this.subscriptionText = httpService.getData().subscribe((data: string) => {
             this.dataJsonString = data;
             this.parsing(this.dataJsonString);
@@ -52,12 +52,10 @@ export class AppComponent implements OnInit {
         this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
             this.animationData = data.split("\n");
             this.maxCount = this.animationData.length - 1;
+            console.log("soak ani,")
         });
 
-        // setTimeout(() => {
-        //     SubscriptionText.unsubscribe();
-        //     // SubscriptionAnimation.unsubscribe();
-        // }, 200);
+        console.log("soak finish")
 
     }
 
@@ -102,6 +100,11 @@ export class AppComponent implements OnInit {
         this.mapNodes.forEach((key, value) => {
             this.nodes.push(key);
         });
+        //the file with data graph is heaviest  -> loader should be hidden after parsing data
+        const loader = document.querySelector(".page-loader")
+        if (loader) {
+            loader.classList.add("hidden")
+        }
     }
 
 

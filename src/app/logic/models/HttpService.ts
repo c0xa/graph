@@ -8,9 +8,9 @@ import {Link, NodeGraph} from "../../d3";
 export class HttpService {
     // fileName: string = "assets/data2.txt";
 
-    // private _fileNameJsonData: string = "assets/data/graph/data2.txt";
+    private _fileNameJsonData: string = "assets/data/graph/data2.txt";
 
-    private _fileNameJsonData: string = "assets/data/graph/materials.json";
+    // private _fileNameJsonData: string = "assets/data/graph/materials.json";
     private _fileNameAnimationBlock: string = "assets/data/workload/animation-block.txt";
     data: string = ""
 

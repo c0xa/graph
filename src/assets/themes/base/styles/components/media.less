@@ -1,0 +1,43 @@
+@import "../base.less";
+
+@media screen and (max-height: 800px) {
+
+    &.header__theme {
+        width: @size-image-small;
+        height: @size-image-small;
+        background-size: @size-image-small @size-image-small;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    &.header__theme {
+        width: @size-image-tiny;
+        height: @size-image-tiny;
+        background-size: @size-image-tiny @size-image-tiny;
+    }
+    //&& - cheat for styles interruptions
+    & .light-theme {
+        && .header {
+            background-color: @background-primary-light;
+            box-shadow: none;
+        }
+    }
+    & .dark-theme {
+        && .header {
+            background-color: @background-primary-dark;
+
+        }
+        && .footer {
+            background-color: @background-primary-dark;
+            box-shadow: none;
+        }
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .footer .image-info, .footer .image-message {
+        width: @size-image-tiny;
+        height: @size-image-tiny;
+        background-size: @size-image-tiny @size-image-tiny;
+    }
+}

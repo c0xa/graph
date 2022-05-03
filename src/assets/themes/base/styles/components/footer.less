@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     height: 10vh;
     transition: 500ms;
     & .image-info, .image-message {
@@ -53,14 +53,5 @@
         right: 20px;
         -webkit-mask-image: url("../../images/message.svg");
         mask-image: url("../../images/message.svg");
-    }
-}
-
-@media screen and (max-height: 700px) {
-
-    .footer .image-info, .footer .image-message {
-        width: @size-image-tiny;
-        height: @size-image-tiny;
-        background-size: @size-image-tiny @size-image-tiny;
     }
 }
