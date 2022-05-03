@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
     isError: boolean = false;
+    number: number = 1;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
@@ -144,32 +145,17 @@ export class AppComponent implements OnInit {
         if (this.slider) {
             this.count = this.slider.nativeElement.value;
         }
-        // this.count++;
-        // // for (let row = 0; row < this.animationData.length; row++) {
-    // // // for (let row = 105; row < 106; row++) {
-    //     const rowAnimation =  this.animationData[this.count].split(",");
-    //     console.log(rowAnimation)
-    //     for (let column = 0; column < rowAnimation.length; column++) {
-    //         const columnAnimation =  rowAnimation[column];
-    //         // console.log(  this.nodes[column])
-    //         this.nodes[column].setColorAnimation(columnAnimation)
-    //         // setTimeout(() => {},100);
-    //     }
-    // }
-    //     console.log("rime", this.animationData[this.count].split(","),  this.nodes);
         clearInterval(this.interval);
         this.interval = setInterval(() => {
-            // console.log(this.nodes)
-            // console.log("rime", thi  s.animationData[this.count].split(","),  this.count);
             if (this.count < 372 && this.animationData)  {
                 const rowAnimation =  this.animationData[this.count].split(",");
                 for (let column = 0; column < rowAnimation.length; column++) {
                     const columnAnimation = rowAnimation[column].trim();
-                    // console.log( columnAnimation, this.nodes[column], column)
                     this.nodes[column]?.setColorAnimation(columnAnimation);
                 }
                 this.count++;
             }
+            this.number++;
         },200);
     }
 

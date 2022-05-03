@@ -3,12 +3,6 @@
     <div class="menu"
          [attr.hidden]="this.isVisualization ? 'true' : null">
         <header class="header">
-<!--            <div class="image header__image">-->
-<!--                <div class="image-logo"></div>-->
-<!--            </div>-->
-<!--            <div class="label-logo header__label">-->
-<!--                <h1>Graph</h1>-->
-<!--            </div>-->
             <svg class="header__theme image-theme"
                  (click)="switchTheme()"
             ></svg>
@@ -41,6 +35,7 @@
             [nodes]="nodes"
             [links]="links"
             [switchTheme]="isSwitchTheme"
+            [number]="number"
             class="visualization"
         ></app-node-visual-component>
         <form (submit)="animationStep()" class="visualization-form">

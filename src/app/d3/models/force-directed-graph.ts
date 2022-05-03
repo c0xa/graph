@@ -42,7 +42,11 @@ export class ForceDirectedGraph {
         if (!this.simulation) {
           throw new Error('simulation was not initialized yet');
         }
-
+        // const simulation = d3.forceSimulation(this.nodes)
+        //     .force("charge", d3.forceManyBody())
+        //     .force("link", d3.forceLink(this.links))
+        //     .force("center", d3.forceCenter());
+        // simulation.force("charge", null);
         this.simulation.nodes(this.nodes);
     }
 
@@ -65,7 +69,7 @@ export class ForceDirectedGraph {
 
         /** Creating the simulation */
         if (!this.simulation) {
-            // const ticker = this.ticker;
+            const ticker = this.ticker;
 
             // this.simulation = d3.forceSimulation()
             //                     .force('charge',
@@ -118,14 +122,25 @@ export class ForceDirectedGraph {
             //     );
 
             // Connecting the d3 ticker to an angular event emitter
-            this.simulation.on('start');
+            // this.simulation.on('start');
 
+
+
+            // this.simulation.on('end', function () {
+            //     console.log("soak end")
+            //     ticker.emit(this);
+            // });
+
+            this.simulation.on('end', function () {
+                console.log("soak end")
+                ticker.emit(this);
+            });
             this.initNodes();
             this.initLinks();
         }
 
         /** Updating the central force of the simulation */
-        // this.simulation.force('centers', d3.forceCenter(options.width / 2, options.height / 2));
+        this.simulation.force('centers', d3.forceCenter(options.width / 2, options.height / 2));
 
         /** Restarting the simulation internal timer */
         this.simulation.restart();

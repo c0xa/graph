@@ -1,3 +1,4 @@
+import {ChangeDetectorRef} from "@angular/core";
 
 export class NodeGraph implements d3.SimulationNodeDatum {
     // optional - defining optional implementation properties - required for relevant typing assistance
@@ -7,7 +8,6 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     vy?: number;
     fx?: number | null;
     fy?: number | null;
-    // index: number;
     id: string;
     linkCount: number = 0;
     colorAnimation: string;
@@ -15,8 +15,6 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     constructor(id: string) {
         this.id = id;
         this.colorAnimation = "0";
-        // this.index = index;
-        // console.log(this.id);
     }
 
     normal = () => {
@@ -29,7 +27,6 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     }
 
     get color() {
-        // console.log("soak color", this.normal())
         return this.colorAnimation === "0" ?  "rgb(61,162,18)" : "rgb(217,46,60)"
     }
 
@@ -43,6 +40,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     }
 
     setColorAnimation(colorAnimation: string) {
+        console.log("setColorAnimation", this.colorAnimation)
         this.colorAnimation = colorAnimation;
     }
 }

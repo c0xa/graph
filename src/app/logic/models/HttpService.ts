@@ -6,7 +6,6 @@ import {Link, NodeGraph} from "../../d3";
 
 @Injectable()
 export class HttpService {
-    // fileName: string = "assets/data2.txt";
 
     private _fileNameJsonData: string = "assets/data/graph/data2.txt";
 
