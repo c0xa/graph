@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NodeVisualComponentComponent } from './node-visual-component/node-visual-component.component';
 import {HttpService} from "./logic/models/HttpService";
 import { D3Service, D3_DIRECTIVES } from './d3';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 @NgModule({
     declarations: [
         AppComponent,
