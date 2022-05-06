@@ -58,7 +58,6 @@ export class ForceDirectedGraph {
         this.simulation.force('links',
             d3.forceLink(this.links)
                 .id((d: any) => d['id'])
-                .strength(FORCES.LINKS)
             );
         }
 
@@ -84,16 +83,27 @@ export class ForceDirectedGraph {
             //             .strength((d: any) => FORCES.CHARGE * d['r'] + 25)
             //     );
             this.simulation = d3.forceSimulation()
+                .force("link", d3.forceLink(this.links)
+                    .id((d: any) => d['id']))
                 .force('charge',
                     d3.forceCollide()
-                        .strength(FORCES.COLLISION)
-                        .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH)
-                        .iterations(1)
+                        // .strength(1)
+                        .radius((d) =>  200)
+                        // .iterations(1)
                 )
-                .force('collide',
-                    d3.forceManyBody()
-                        .strength((d: any) => FORCES.CHARGE * d['r'] + 25)
-                );
+
+                // .force("charge", d3.forceManyBody())
+                .force("center", d3.forceCenter(options.width / 2, options.height / 2));
+                // .force('charge',
+                //     d3.forceCollide()
+                //         .strength(FORCES.COLLISION)
+                //         .radius((d: any) => d['linkCount'] === 1 ? d['r'] * FORCES.LENGTH : d['linkCount'] * FORCES.LENGTH)
+                //         .iterations(1)
+                // )
+                // .force('collide',
+                //     d3.forceManyBody()
+                //         .strength((d: any) => FORCES.CHARGE * d['r'] + 25)
+                // );
 
             // this.simulation = d3.forceSimulation()
             //                     .force('collide',
