@@ -131,7 +131,7 @@ export class ForceDirectedGraph {
             //     ticker.emit(this);
             // });
 
-            this.simulation.on('end', function () {
+            this.simulation.on('tick', function () {
                 console.log("soak end")
                 ticker.emit(this);
             });
