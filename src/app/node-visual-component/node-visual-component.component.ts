@@ -1,11 +1,11 @@
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component,
+    Component, ElementRef,
     HostListener,
     Input,
     OnChanges, OnDestroy,
-    OnInit
+    OnInit, ViewChild
 } from '@angular/core';
 
 import {D3Service, ForceDirectedGraph, Link, NodeGraph} from "../d3";
@@ -19,11 +19,15 @@ import * as d3 from 'd3';
     styleUrls: ['./node-visual-component.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestroy {
+export class NodeVisualComponentComponent implements OnInit, OnDestroy {
     @Input('nodes') nodes: NodeGraph[] = [];
     @Input('links') links: Link[] = [];
     @Input('switchTheme') isSwitchTheme: boolean = false;
     @Input('number') number: number = 2;
+
+    @ViewChild('node') node: ElementRef | undefined;
+    @ViewChild('link') link: ElementRef | undefined;
+
     graph!: ForceDirectedGraph;
     _options: { width: number, height: number } = {width: 400, height: 400};
     subscription: Subscription = new Subscription();
@@ -32,13 +36,6 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
 
     @HostListener('resize')
     onResize() {
-        this.graph.initSimulation(this.options);
-    }
-
-    ngOnChanges() {
-        this.unsubscribing();
-        this.graph = this.d3Service.getForceDirectedGraph(this.nodes, this.links, this.options);
-        this.subscribing();
         this.graph.initSimulation(this.options);
     }
 
@@ -66,11 +63,6 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
     unsubscribing() {
         this.notifier.next();
         this.subscription.unsubscribe()
-    }
-
-
-    ngAfterViewInit() {
-        this.graph.initSimulation(this.options);
     }
 
     get options() {

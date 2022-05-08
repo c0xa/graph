@@ -53,10 +53,8 @@ export class AppComponent implements OnInit {
         this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
             this.animationData = data.split("\n");
             this.maxCount = this.animationData.length - 1;
-            console.log("soak ani,")
         });
 
-        console.log("soak finish")
 
     }
 
@@ -136,7 +134,7 @@ export class AppComponent implements OnInit {
             const rowAnimation = this.animationData[this.count].split(",");
             for (let column = 0; column < rowAnimation.length; column++) {
                 const columnAnimation = rowAnimation[column].trim();
-                this.nodes[column]?.setColorAnimation(columnAnimation)
+                this.nodes[column]?.setColorAnimation(+columnAnimation)
             }
         }
     }
@@ -151,7 +149,7 @@ export class AppComponent implements OnInit {
                 const rowAnimation =  this.animationData[this.count].split(",");
                 for (let column = 0; column < rowAnimation.length; column++) {
                     const columnAnimation = rowAnimation[column].trim();
-                    this.nodes[column]?.setColorAnimation(columnAnimation);
+                    this.nodes[column]?.setColorAnimation(+columnAnimation);
                 }
                 this.count++;
             }

@@ -1,7 +1,6 @@
 import {Directive, Input, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { NodeGraph, ForceDirectedGraph } from '../models';
 import { D3Service } from '../d3.service';
-import {NodeVisualComponentComponent} from "../../node-visual-component/node-visual-component.component";
 
 @Directive({
     selector: '[draggableNode]'

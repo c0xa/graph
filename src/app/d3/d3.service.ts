@@ -15,18 +15,11 @@ export class D3Service {
 
     /** A method to bind a pan and zoom behaviour to an svg element */
     applyZoomAbleBehaviour(svgElement: Element, containerElement: Element) {
-        let svg: d3.Selection<any, unknown, null, undefined>;
-        let container: d3.Selection<any, unknown, null, undefined>;
-        const x = 600;
-        const y = 200;
-        const k = 0.2;
+        let svg: d3.Selection<Element, unknown, null, undefined>;
+        let container: d3.Selection<Element, unknown, null, undefined>;
         svg = d3.select(svgElement);
         container = d3.select(containerElement);
-        // container.attr('transform', 'translate(' + x + ',' + y + ') scale(' + k + ')');
-
-        // var g_transform = d3.zoomIdentity.translate(x, y).scale(1);
         const zoomed = () => {
-            console.log("soak zoom");
             const transform = d3.zoomTransform(containerElement);
             container.attr('transform', 'translate(' + transform.x + ',' + transform.y + ') scale(' + transform.k + ')');
         }
@@ -34,38 +27,39 @@ export class D3Service {
         svg.call(zoom);
     }
 
-        /** A method to bind a draggable behaviour to an svg element */
-        applyDraggableBehaviour(element: Element, node: NodeGraph, graph: ForceDirectedGraph) {
-            const d3element: d3.Selection<any, unknown, null, undefined> = d3.select(element);
+    /** A method to bind a draggable behaviour to an svg element */
+    applyDraggableBehaviour(element: Element, node: NodeGraph, graph: ForceDirectedGraph) {
+        const d3element: d3.Selection<Element, unknown, null, undefined> = d3.select(element);
 
-            function dragstarted(event: any) {
-                d3element.raise().classed("active", true);
-                if (!event.active) {
-                    graph.simulation.alphaTarget(0.9).restart();
-                }
+        function dragstarted(event: any) {
+            if (!event.active) {
+                graph.simulation.alphaTarget(0.3).restart();
             }
-
-            function dragged(event: any) {
-                d3element.attr("fx", node.fx = event.x).attr("fy", node.fy = event.y);
-            }
-
-            function dragended(event: any) {
-                d3element.attr("fx", node.fx = null).attr("fy", node.fy = null);
-                d3element.classed("active", false);
-            }
-
-            d3element.call(d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended)
-            );
         }
+
+        function dragged(event: any) {
+            d3element.attr("fx", node.fx = event.x).attr("fy", node.fy = event.y);
+        }
+
+        function dragended(event: any) {
+            if (!event.active) {
+                graph.simulation.alphaTarget(0);
+            }
+            d3element.attr("fx", node.fx = null).attr("fy", node.fy = null);
+            d3element.classed("active", false);
+        }
+
+        d3element.call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended)
+        );
+    }
     /** The interactable graph we will simulate in this article
     * This method does not interact with the document, purely physical calculations with d3
     */
     getForceDirectedGraph(nodes: NodeGraph[], links: Link[], options: { width: number, height: number }) {
         const sg = new ForceDirectedGraph(nodes, links, options);
-        console.log("start")
         return sg;
     }
 }
