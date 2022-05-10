@@ -20,6 +20,22 @@
 
             cursor: pointer;
         }
+
+        & .image__step {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            top: 260px;
+
+            border: 5px solid @background-secondary-light;;
+            border-radius: 50%;
+
+            width: 60px;
+            height: 60px;
+
+            .font-very-big-very-bold();
+        }
         & .image__close {
             top: 20px;
             -webkit-mask-image: url("../../images/close.svg");
@@ -30,6 +46,12 @@
             top: 100px;
             -webkit-mask-image: url("../../images/play.svg");
             mask-image: url("../../images/play.svg");
+        }
+
+        & .image__pause {
+            top: 180px;
+            -webkit-mask-image: url("../../images/pause.svg");
+            mask-image: url("../../images/pause.svg");
         }
     }
 }

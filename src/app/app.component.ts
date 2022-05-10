@@ -38,10 +38,11 @@ export class AppComponent implements OnInit {
     subscriptionAnimation: any;
     interval: number = 0;
 
+    maxAnimationStep: number = 372;
+
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
     isError: boolean = false;
-    number: number = 1;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
@@ -122,6 +123,7 @@ export class AppComponent implements OnInit {
 
     isExit() {
         this.isVisualization = false;
+        this.count = 0;
         clearInterval(this.interval);
     }
 
@@ -139,22 +141,29 @@ export class AppComponent implements OnInit {
         }
     }
 
+    pause() {
+        clearInterval(this.interval);
+    }
+
     animation() {
         if (this.slider) {
             this.count = this.slider.nativeElement.value;
         }
         clearInterval(this.interval);
-        this.interval = setInterval(() => {
-            if (this.count < 372 && this.animationData)  {
-                const rowAnimation =  this.animationData[this.count].split(",");
-                for (let column = 0; column < rowAnimation.length; column++) {
-                    const columnAnimation = rowAnimation[column].trim();
-                    this.nodes[column]?.setColorAnimation(+columnAnimation);
+        if (this.count < this.maxAnimationStep) {
+            this.interval = setInterval(() => {
+                if (this.count < this.maxAnimationStep && this.animationData)  {
+                    const rowAnimation =  this.animationData[this.count].split(",");
+                    for (let column = 0; column < rowAnimation.length; column++) {
+                        const columnAnimation = rowAnimation[column].trim();
+                        this.nodes[column]?.setColorAnimation(+columnAnimation);
+                    }
+                    this.count++;
                 }
-                this.count++;
-            }
-            this.number++;
-        },200);
+            },200);
+        } else {
+            clearInterval(this.interval);
+        }
     }
 
     switchTheme() {

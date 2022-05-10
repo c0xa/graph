@@ -23,7 +23,7 @@ export class NodeVisualComponentComponent implements OnInit, OnDestroy {
     @Input('nodes') nodes: NodeGraph[] = [];
     @Input('links') links: Link[] = [];
     @Input('switchTheme') isSwitchTheme: boolean = false;
-    @Input('number') number: number = 2;
+    @Input('stepAnimation') stepAnimation: number = 1;
 
     @ViewChild('node') node: ElementRef | undefined;
     @ViewChild('link') link: ElementRef | undefined;
