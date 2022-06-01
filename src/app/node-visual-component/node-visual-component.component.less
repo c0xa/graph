@@ -1,20 +1,13 @@
 @import "../../assets/base/styles/base.less";
 
 .link {
-    //width: 600px;
-    //height: 600px;
     &__line {
-        //stroke-width: 5px;
         stroke-width: 1px;
     }
 }
 
 .node {
     cursor: pointer;
-    //&__svg {
-    //    width: 100px;
-    //    height: 100px;
-    //}
 
     &__text {
         text-anchor: middle;
@@ -22,6 +15,11 @@
         font-weight: 300;
         fill: @color-font-dark;
     }
+}
+
+.visualization-panel__canvas-graph {
+    position: absolute;
+    pointer-events: none;
 }
 
 .visualization-panel {

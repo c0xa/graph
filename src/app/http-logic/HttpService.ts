@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {Link, NodeGraph} from "../../d3";
+import {Link, NodeGraph} from "../d3";
 
 @Injectable()
 export class HttpService {
 
-    private _fileNameJsonData: string = "assets/data/graph/data2.json";
+    // private _fileNameJsonData: string = "assets/data/graph/data2.json";
     // private _fileNameJsonData: string = "assets/data/graph/materials.json";
-    // private _fileNameJsonData: string = "assets/data/graph/materials.json";
+    private _fileNameJsonData: string = "assets/data/graph/materials.json";
     private _fileNameAnimationBlock: string = "assets/data/workload/animation-block.txt";
     data: string = ""
 

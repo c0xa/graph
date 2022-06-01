@@ -1,11 +1,18 @@
 <div class="visualization-panel"
     [ngClass]="isSwitchTheme ? 'dark-theme' : 'light-theme'">
+    <canvas [attr.width]="_options.width"
+            [attr.height]="_options.height"
+            #canvas
+            class="visualization-panel__canvas-graph"
+            id="my_dataviz2"
+    >
+    </canvas>
     <svg #svg
          [attr.width]="_options.width"
          [attr.height]="_options.height"
          class="visualization-panel__svg-graph">
         <g [zoomAbleOf]="svg" class="svg-graph">
-            <g #link
+            <g
                 *ngFor="let link of links"
                 class="svg-graph__link">
                 <line class="link__line"
@@ -16,7 +23,7 @@
                 >
                 </line>
             </g>
-            <g #node
+            <g
                 *ngFor="let node of nodes"
                [draggableNode]="node"
                [draggableInGraph]="graph"
@@ -37,3 +44,14 @@
         </g>
     </svg>
 </div>
+
+<div id="chart"></div>
+
+<script>
+    var canvas  = d3.select("#chart").append("canvas")
+        .attr("id", "canvas")
+        .attr("width", 400)
+        .attr("height", 400);
+
+    var context = canvas.node().getContext("2d");
+</script>

@@ -1,12 +1,4 @@
 {
-   "SimulationSettings":{
-      "RoutingAlgorithm":"dijkstra",
-      "MultiplierThresholdToBlock":"0",
-      "FractionThresholdToUnBlock":"0",
-      "UseOnlyIsActiveNodes":"false",
-      "NumberOfGenerations":"0",
-      "MessagesToGenerateOnInit":"0"
-   },
    "Nodes":[
       {
          "ID":"0"

@@ -5,7 +5,7 @@ import {
     OnInit,
     ViewChild
 } from '@angular/core';
-import {HttpService} from "./logic/models/HttpService";
+import {HttpService} from "./http-logic/HttpService";
 import {Link, NodeGraph} from "./d3";
 import {Observable} from "rxjs";
 
@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
     interval: number = 0;
 
     maxAnimationStep: number = 372;
+    isPause: boolean = true;
 
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
@@ -142,6 +143,7 @@ export class AppComponent implements OnInit {
     }
 
     pause() {
+        console.log("soak ", this.interval)
         clearInterval(this.interval);
     }
 
@@ -149,8 +151,10 @@ export class AppComponent implements OnInit {
         if (this.slider) {
             this.count = this.slider.nativeElement.value;
         }
+        this.isPause = !this.isPause;
+        console.log("soak ", this.interval)
         clearInterval(this.interval);
-        if (this.count < this.maxAnimationStep) {
+        if (this.count < this.maxAnimationStep && !this.isPause) {
             this.interval = setInterval(() => {
                 if (this.count < this.maxAnimationStep && this.animationData)  {
                     const rowAnimation =  this.animationData[this.count].split(",");

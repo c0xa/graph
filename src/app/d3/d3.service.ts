@@ -1,9 +1,6 @@
-import {Injectable, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as d3 from 'd3';
 import { NodeGraph, Link, ForceDirectedGraph } from './models';
-import {NodeVisualComponentComponent} from "../node-visual-component/node-visual-component.component";
-import {take} from "rxjs/operators";
-import {Observable, Subscription} from "rxjs";
 
 @Injectable()
 export class D3Service {

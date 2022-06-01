@@ -2,9 +2,8 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component, ElementRef,
-    HostListener,
     Input,
-    OnChanges, OnDestroy,
+    OnDestroy,
     OnInit, ViewChild
 } from '@angular/core';
 
@@ -25,19 +24,12 @@ export class NodeVisualComponentComponent implements OnInit, OnDestroy {
     @Input('switchTheme') isSwitchTheme: boolean = false;
     @Input('stepAnimation') stepAnimation: number = 1;
 
-    @ViewChild('node') node: ElementRef | undefined;
-    @ViewChild('link') link: ElementRef | undefined;
+    @ViewChild('canvas') canvas: ElementRef | undefined;
 
     graph!: ForceDirectedGraph;
     _options: { width: number, height: number } = {width: 400, height: 400};
     subscription: Subscription = new Subscription();
-    observable: Observable<any> = new Observable<any>();
     notifier = new Subject();
-
-    @HostListener('resize')
-    onResize() {
-        this.graph.initSimulation(this.options);
-    }
 
     constructor(private d3Service: D3Service, private ref: ChangeDetectorRef) {
     }
