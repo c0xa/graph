@@ -17,16 +17,13 @@ import * as d3 from 'd3';
     selector: 'app-node-visual-component',
     templateUrl: './node-visual-component.component.html',
     styleUrls: ['./node-visual-component.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NodeVisualComponentComponent implements OnInit, OnDestroy {
     @Input('nodes') nodes: NodeGraph[] = [];
     @Input('links') links: Link[] = [];
     @Input('switchTheme') isSwitchTheme: boolean = false;
     @Input('stepAnimation') stepAnimation: number = 1;
-
-    @ViewChild('node') node: ElementRef | undefined;
-    @ViewChild('link') link: ElementRef | undefined;
 
     graph!: ForceDirectedGraph;
     _options: { width: number, height: number } = {width: 400, height: 400};

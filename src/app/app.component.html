@@ -31,8 +31,10 @@
     <div *ngIf="this.isVisualization" class="main-visualization">
         <svg class="main-visualization__image image__close" (click)="isExit()"></svg>
         <svg class="main-visualization__image image__animation" (click)="animation()"></svg>
-        <svg class="main-visualization__image image__pause" (click)="pause()"></svg>
-        <div class="main-visualization__image image__step">{{count}}</div>
+        <div class="main-visualization__image image__step">
+            <input
+                #stepAnimation class="input-step" type="number" id="rangeNumber" min="1" [max]="maxAnimationStep" [value]="count" oninput="range.value=value">
+            </div>
         <app-node-visual-component
             [nodes]="nodes"
             [links]="links"
@@ -40,10 +42,9 @@
             [stepAnimation]="count"
             class="visualization"
         ></app-node-visual-component>
-<!--        <form (submit)="animationStep()" class="visualization-form">-->
-<!--            <input type="range" min="1" [attr.max]="maxCount"  id="range" oninput="rangenumber.value=value" #slider [attr.value]="count"/>-->
-<!--            <input type="number" id="rangenumber" min="1" max="10" [attr.value]="count" oninput="range.value=value">-->
-<!--        </form>-->
+        <form class="visualization-form">
+            <input type="range" min="1" [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" #slider [value]="count"/>
+        </form>
     </div>
 
 </div>

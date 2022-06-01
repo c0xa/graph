@@ -1,9 +1,37 @@
 @import "../base.less";
 
 .visualization-form {
-    position: absolute;
+    width: 100%;
 
-    bottom: 2%;
-    right: 2%;
+    position: absolute;
+    bottom: 20px;
     margin-top: @indent-tiny;
+}
+
+input[type='range'] {
+    position: absolute;
+    left: 50px;
+
+    overflow: hidden;
+    width: calc(100% - 100px);
+    -webkit-appearance: none;
+    background-color: @color-shadow-dark;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: @color-font-light;
+    cursor: ew-resize;
+    box-shadow: 0 0 2px 0@color-shadow-dark;
+    transition: background .3s ease-in-out;
+}
+
+input[type=range]::-webkit-slider-runnable-track  {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
 }

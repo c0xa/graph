@@ -1,4 +1,6 @@
 import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ElementRef,
     Input,
@@ -18,7 +20,7 @@ import {Observable} from "rxjs";
 export class AppComponent implements OnInit {
 
     @ViewChild("slider") slider: ElementRef | undefined;
-    @Input('loader') loader!: HTMLDivElement;
+    @ViewChild('stepAnimation') stepAnimation!: ElementRef;
     httpService: HttpService;
 
     nodes: NodeGraph[] = [];
@@ -31,7 +33,6 @@ export class AppComponent implements OnInit {
     allLinks: Link[] = [];
 
     count: number = 0;
-    maxCount: number = 0;
     dataJsonString: string = "";
     animationData: string[] = [];
     subscriptionText: any;
@@ -39,6 +40,8 @@ export class AppComponent implements OnInit {
     interval: number = 0;
 
     maxAnimationStep: number = 372;
+
+    isPause: boolean = false;
 
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
@@ -53,10 +56,8 @@ export class AppComponent implements OnInit {
 
         this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
             this.animationData = data.split("\n");
-            this.maxCount = this.animationData.length - 1;
+            this.maxAnimationStep = this.animationData.length - 1;
         });
-
-
     }
 
     ngOnInit() {
@@ -112,9 +113,6 @@ export class AppComponent implements OnInit {
         this.isVisualization = true
         this.nodes = [];
         this.links = [];
-        // if (this.slider) {
-        //     this.time = this.slider.nativeElement.value;
-        // }
         this.mapNodes = new Map<string, NodeGraph>();
         this.allLinks = [];
         this.dataJsonString = document.forms[0]['textarea'].value;
@@ -127,30 +125,10 @@ export class AppComponent implements OnInit {
         clearInterval(this.interval);
     }
 
-    animationStep() {
-        clearInterval(this.interval);
-        if (this.slider) {
-            this.count = this.slider.nativeElement.value;
-        }
-        if (this.animationData) {
-            const rowAnimation = this.animationData[this.count].split(",");
-            for (let column = 0; column < rowAnimation.length; column++) {
-                const columnAnimation = rowAnimation[column].trim();
-                this.nodes[column]?.setColorAnimation(+columnAnimation)
-            }
-        }
-    }
-
-    pause() {
-        clearInterval(this.interval);
-    }
-
     animation() {
-        if (this.slider) {
-            this.count = this.slider.nativeElement.value;
-        }
+        this.isPause = !this.isPause;
         clearInterval(this.interval);
-        if (this.count < this.maxAnimationStep) {
+        if (this.count < this.maxAnimationStep && this.isPause) {
             this.interval = setInterval(() => {
                 if (this.count < this.maxAnimationStep && this.animationData)  {
                     const rowAnimation =  this.animationData[this.count].split(",");

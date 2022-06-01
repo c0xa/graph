@@ -2,29 +2,31 @@
 
 @media screen and (max-height: 800px) {
 
-    &.header__theme {
+    .header__theme {
         width: @size-image-small;
         height: @size-image-small;
         background-size: @size-image-small @size-image-small;
     }
-    & .main-visualization .main-visualization__image {
-        bottom: 0;
-        top: auto;
+    .main-visualization .main-visualization__image {
+        right: @image-top-begin;
     }
-    & .image__close {
-        left: 8px;
-    }
-
-    & .image__animation {
-        left: 85px;
+    .image__close {
+        top: @image-top-begin + @image-top-diff;
     }
 
-    & .image__pause {
-        left: 160px;
+    .image__animation {
+        top: @image-top-begin + @image-top-diff + @image-top-diff;
     }
 
-    & .image__step {
-        left: 235px;
+    .image__step {
+        top: @image-top-begin + @image-top-diff + @image-top-diff + @image-top-diff;
+    }
+
+    .visualization-form {
+        & input[type='range'] {
+            left: calc(50% - 100px);
+            width: 200px;
+        }
     }
 }
 

@@ -13,8 +13,7 @@
         align-self: center;
         &__image {
             position: absolute;
-
-            right: 20px;
+            right: @image-top-begin;
             width: @size-image-medium;
             height: @size-image-medium;
 
@@ -26,7 +25,7 @@
             justify-content: center;
             align-items: center;
 
-            top: 260px;
+            top: @image-top-begin + @image-top-diff + @image-top-diff;
 
             border: 5px solid @background-secondary-light;;
             border-radius: 50%;
@@ -34,24 +33,30 @@
             width: 60px;
             height: 60px;
 
-            .font-very-big-very-bold();
+            & .input-step {
+                width: 60px;
+
+                color: #6200EE;
+                .font-normal-big-max-bold();
+                border: none;
+                border-radius: 50%;
+                text-align: center;
+                &:focus-visible {
+                    border: none;
+                    outline: none;
+                }
+            }
         }
         & .image__close {
-            top: 20px;
+            top: @image-top-begin;
             -webkit-mask-image: url("../../images/close.svg");
             mask-image: url("../../images/close.svg");
         }
 
         & .image__animation {
-            top: 100px;
+            top: @image-top-begin + @image-top-diff;
             -webkit-mask-image: url("../../images/play.svg");
             mask-image: url("../../images/play.svg");
-        }
-
-        & .image__pause {
-            top: 180px;
-            -webkit-mask-image: url("../../images/pause.svg");
-            mask-image: url("../../images/pause.svg");
         }
     }
 }
