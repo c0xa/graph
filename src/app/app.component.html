@@ -54,7 +54,7 @@
                     </rect>
                 </g>
             </svg>
-        <input type="range" min="1" [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" [value]="count"/>
+        <input type="range" min="1" #slider [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" [value]="count"/>
         </form>
     </div>
 

@@ -18,6 +18,7 @@ import {Observable} from "rxjs";
 })
 
 export class AppComponent implements OnInit {
+    @ViewChild("slider") slider: ElementRef | undefined;
     httpService: HttpService;
 
     nodes: NodeGraph[] = [];
@@ -144,6 +145,9 @@ export class AppComponent implements OnInit {
 
     animation() {
         this.isPause = !this.isPause;
+        if (this.slider) {
+            this.count = this.slider.nativeElement.value;
+        }
         clearInterval(this.interval);
         if (this.count < this.maxAnimationStep && this.isPause) {
             this.interval = setInterval(() => {
