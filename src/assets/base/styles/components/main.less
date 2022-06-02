@@ -6,6 +6,34 @@
     align-self: center;
     &-data {
         width: 100%;
+        &__button {
+            width: 190px;
+            height: 30px;
+
+            margin: 0 auto;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-position: left;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+            transition: 500ms;
+            &:before {
+                content: 'Change textarea';
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 180px;
+                height: 40px;
+                transition: 500ms;
+            }
+            &:focus {
+                outline: none;
+            }
+        }
     }
     &-visualization {
         display: flex;
@@ -13,7 +41,7 @@
         align-self: center;
         &__image {
             position: absolute;
-            right: @image-top-begin;
+            right: @image-left-begin;
             width: @size-image-medium;
             height: @size-image-medium;
 
@@ -24,10 +52,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
             top: @image-top-begin + @image-top-diff + @image-top-diff;
 
-            border: 5px solid @background-secondary-light;;
+            border: 5px solid @background-secondary-light;
             border-radius: 50%;
 
             width: 60px;
@@ -35,7 +62,7 @@
 
             & .input-step {
                 width: 60px;
-
+                background: none;
                 color: #6200EE;
                 .font-normal-big-max-bold();
                 border: none;
@@ -59,4 +86,6 @@
             mask-image: url("../../images/play.svg");
         }
     }
+
+
 }

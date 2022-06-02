@@ -12,7 +12,12 @@
                 <div class="main-data">
                     <form (submit)="onSubmitData()" [class.error]=isError class="form-data main-data__form-data">
                         <div class="form-data__error"></div>
-                        <textarea class="textarea" class="form-data__textarea" name="textarea">{{dataJsonString}}</textarea>
+                        <div class="form-data__textarea">
+                            <textarea
+                                class="textarea" name="textareaData">{{dataJsonString}}</textarea>
+                            <textarea
+                                class="textarea"  name="textareaAnimation">{{animationString}}</textarea>
+                        </div>
                         <button title="Go visualization" class="form-data__button" type="submit"></button>
                     </form>
                 </div>
@@ -33,7 +38,7 @@
         <svg class="main-visualization__image image__animation" (click)="animation()"></svg>
         <div class="main-visualization__image image__step">
             <input
-                #stepAnimation class="input-step" type="number" id="rangeNumber" min="1" [max]="maxAnimationStep" [value]="count" oninput="range.value=value">
+                class="input-step" type="number" id="rangeNumber" min="1" [max]="maxAnimationStep" [value]="count" oninput="range.value=value">
             </div>
         <app-node-visual-component
             [nodes]="nodes"
@@ -43,7 +48,13 @@
             class="visualization"
         ></app-node-visual-component>
         <form class="visualization-form">
-            <input type="range" min="1" [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" #slider [value]="count"/>
+            <svg class="visualization-form__svg">
+                <g *ngFor="let value of animationChange, let i = index">
+                    <rect class="svg-g" [attr.width]="animationWidth" [attr.height]="value + 1" [attr.x]="animationWidth * i" [attr.index]="i">
+                    </rect>
+                </g>
+            </svg>
+        <input type="range" min="1" [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" [value]="count"/>
         </form>
     </div>
 

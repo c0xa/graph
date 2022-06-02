@@ -8,25 +8,20 @@
         background-size: @size-image-small @size-image-small;
     }
     .main-visualization .main-visualization__image {
-        right: @image-top-begin;
+        position: absolute;
+        top: unset;
+        bottom: @indent-small;
     }
     .image__close {
-        top: @image-top-begin + @image-top-diff;
+        left: @indent-small;
     }
 
     .image__animation {
-        top: @image-top-begin + @image-top-diff + @image-top-diff;
+        left: @indent-small + @image-top-diff;
     }
 
     .image__step {
-        top: @image-top-begin + @image-top-diff + @image-top-diff + @image-top-diff;
-    }
-
-    .visualization-form {
-        & input[type='range'] {
-            left: calc(50% - 100px);
-            width: 200px;
-        }
+        left: @indent-small + @image-top-diff + @image-top-diff;
     }
 }
 

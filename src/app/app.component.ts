@@ -18,9 +18,6 @@ import {Observable} from "rxjs";
 })
 
 export class AppComponent implements OnInit {
-
-    @ViewChild("slider") slider: ElementRef | undefined;
-    @ViewChild('stepAnimation') stepAnimation!: ElementRef;
     httpService: HttpService;
 
     nodes: NodeGraph[] = [];
@@ -34,7 +31,12 @@ export class AppComponent implements OnInit {
 
     count: number = 0;
     dataJsonString: string = "";
+    animationString: string = "";
     animationData: string[] = [];
+
+    animationChange: number[] = [];
+    animationWidth: number = 0;
+
     subscriptionText: any;
     subscriptionAnimation: any;
     interval: number = 0;
@@ -46,17 +48,18 @@ export class AppComponent implements OnInit {
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
     isError: boolean = false;
+    changeText: boolean = false;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
         this.subscriptionText = httpService.getData().subscribe((data: string) => {
             this.dataJsonString = data;
-            this.parsing(this.dataJsonString);
+            this.parsingData(this.dataJsonString);
         });
 
         this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
-            this.animationData = data.split("\n");
-            this.maxAnimationStep = this.animationData.length - 1;
+            this.animationString = data;
+            this.parsingAnimation(data);
         });
     }
 
@@ -70,7 +73,19 @@ export class AppComponent implements OnInit {
 
     }
 
-    parsing(data: string) {
+    parsingAnimation(data: string) {
+        this.animationChange = [];
+        this.animationData = data.split("\n");
+        this.animationData.forEach((value => {
+            let count = value.split(",").filter((value) => value !== "0" && value !== "0\r").length;
+            this.animationChange.push(count);
+        }))
+        this.maxAnimationStep = this.animationData.length - 1;
+        this.animationWidth = window.innerWidth / this.maxAnimationStep;
+    }
+
+
+    parsingData(data: string) {
         let objJson;
         try {
             objJson = JSON.parse(data);
@@ -115,8 +130,10 @@ export class AppComponent implements OnInit {
         this.links = [];
         this.mapNodes = new Map<string, NodeGraph>();
         this.allLinks = [];
-        this.dataJsonString = document.forms[0]['textarea'].value;
-        this.parsing(this.dataJsonString);
+        this.dataJsonString = document.forms[0]['textareaData'].value;
+        this.animationString = document.forms[0]['textareaAnimation'].value;
+        this.parsingData(this.dataJsonString);
+        this.parsingAnimation(this.animationString)
     }
 
     isExit() {

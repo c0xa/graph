@@ -26,7 +26,14 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     }
 
     get color() {
-        return this.colorAnimation === 0 ?  "rgb(61,162,18)" : "rgb(217,46,60)"
+        if (this.colorAnimation === 1) {
+            return "hsl(15, 100%, 33%)";
+        }
+        if (this.colorAnimation === 0) {
+            return "hsl(100, 100%, 33%)";
+        }
+        let normalColor = 85 - this.colorAnimation * 85;
+        return "hsl(" + normalColor + ", 100%, 33%)"
     }
 
     get link() {

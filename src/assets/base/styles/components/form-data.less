@@ -10,14 +10,22 @@
 
     &__textarea {
         width: 80%;
+        display: flex;
+        margin: @indent-small;
+        border-radius: 2px;
+        border: none;
+    }
+
+    .textarea {
+        width: 80%;
         height: 60vh;
 
         max-width: 1323px;
         max-height: 600px;
 
+        margin: @indent-small;
         border-radius: 2px;
         border: none;
-        margin: @indent-small;
         transition: 500ms;
         &:focus-visible {
             outline: none;
