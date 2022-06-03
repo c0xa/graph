@@ -76,7 +76,16 @@ export class AppComponent implements OnInit {
     }
 
     parsingAnimation(data: string) {
+        const regularIsDigit = /(1[,\n])|(0(,)|(.\d+[,\n]))/;
+        const regularIsAlphabet = /[A-Za-z]/;
         this.animationChange = [];
+        const isTesting = regularIsDigit.test(data) && !regularIsAlphabet.test(data);
+        if (!isTesting) {
+            this.isVisualization = false;
+            this.isError = true;
+            return;
+        }
+        this.isError = false;
         this.animationData = data.split("\n");
         this.animationData.forEach((value => {
             let count = value.split(",").filter((value) => value !== "0" && value !== "0\r").length;
