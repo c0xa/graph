@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
 
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
+    isHideVisualizationForm: boolean = false;
     isError: boolean = false;
     changeText: boolean = false;
 
@@ -83,6 +84,11 @@ export class AppComponent implements OnInit {
         }))
         this.maxAnimationStep = this.animationData.length - 1;
         this.animationWidth = window.innerWidth / this.maxAnimationStep;
+        //the file with data graph is heaviest  -> loader should be hidden after parsing data
+        const loader = document.querySelector(".page-loader")
+        if (loader) {
+            loader.classList.add("hidden")
+        }
     }
 
 
@@ -93,7 +99,6 @@ export class AppComponent implements OnInit {
         } catch (e) {
             this.isVisualization = false;
             this.isError = true;
-            console.log("soak", e)
             return;
         }
         this.isError = false;
@@ -117,11 +122,6 @@ export class AppComponent implements OnInit {
         this.mapNodes.forEach((key, value) => {
             this.nodes.push(key);
         });
-        //the file with data graph is heaviest  -> loader should be hidden after parsing data
-        const loader = document.querySelector(".page-loader")
-        if (loader) {
-            loader.classList.add("hidden")
-        }
     }
 
 
@@ -167,5 +167,9 @@ export class AppComponent implements OnInit {
 
     switchTheme() {
         this.isSwitchTheme = !this.isSwitchTheme;
+    }
+
+    hideVisualizationForm() {
+        this.isHideVisualizationForm = !this.isHideVisualizationForm;
     }
 }

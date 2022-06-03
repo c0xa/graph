@@ -30,6 +30,7 @@ export class NodeVisualComponentComponent implements OnInit, OnDestroy {
     subscription: Subscription = new Subscription();
     observable: Observable<any> = new Observable<any>();
     notifier = new Subject();
+    activeNodeID: string = "";
 
     @HostListener('resize')
     onResize() {
@@ -71,5 +72,9 @@ export class NodeVisualComponentComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.unsubscribing();
+    }
+
+    active(id: string) {
+        this.activeNodeID = id;
     }
 }

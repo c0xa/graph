@@ -48,12 +48,13 @@
             class="visualization"
         ></app-node-visual-component>
         <form class="visualization-form">
-            <svg class="visualization-form__svg">
+            <svg [class.hide]=this.isHideVisualizationForm class="visualization-form__svg">
                 <g *ngFor="let value of animationChange, let i = index">
                     <rect class="svg-g" [attr.width]="animationWidth" [attr.height]="value + 1" [attr.x]="animationWidth * i" [attr.index]="i">
                     </rect>
                 </g>
             </svg>
+            <svg class="visualization-form__svg-hide" (click)="hideVisualizationForm()"></svg>
         <input type="range" min="1" #slider [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" [value]="count"/>
         </form>
     </div>

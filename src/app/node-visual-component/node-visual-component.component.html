@@ -8,7 +8,7 @@
             <g #link
                 *ngFor="let link of links"
                 class="svg-graph__link">
-                <line class="link__line"
+                <line [class.active]="link.source.id === this.activeNodeID || link.target.id === this.activeNodeID" class="link__line"
                     [attr.x1]="link.source.x"
                     [attr.y1]="link.source.y"
                     [attr.x2]="link.target.x"
@@ -21,7 +21,11 @@
                [draggableNode]="node"
                [draggableInGraph]="graph"
                class="svg-graph__node">
-                <g class="node" [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+                <g class="node"
+                   [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
+                   (mouseover)="active(node.id)"
+                   (mouseout)="active('')"
+                >
                     <circle class="node__svg"
                             cx="0"
                             cy="0"

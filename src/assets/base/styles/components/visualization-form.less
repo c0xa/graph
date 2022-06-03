@@ -4,29 +4,47 @@
     width: 100%;
 
     position: absolute;
-    top: 40px;
+    box-shadow: 0 2px 14px @color-shadow-dark;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    border-bottom: 1px solid @color-shadow-dark;
     &__svg {
         position: relative;
         left: 50px;
+        top: 5px;
+        height: 150px;
         width: calc(100% - 100px);
+        transition: height 5s, visibility 1s;
         .svg-g {
             fill: @color-shadow-dark;
-
             &:hover {
                 fill: @color-alarm;
-
-                .svg-text {
-                    content: "ssa";
-                    border: 1px solid black;
-                }
             }
+        }
+        &.hide {
+            visibility: hidden;
+            height: 50px;
+        }
+        &-hide {
+            position: absolute;
+            left: calc(50% - 25px);
+            bottom: 5px;
+            width: 20px;
+            height: 20px;
+
+            cursor: pointer;
+            background-color: @color-shadow-dark;
+            border: 1px solid black;
+            -webkit-mask-image: url("../../images/hide.svg");
+            mask-image: url("../../images/hide.svg");
         }
     }
 
     input[type='range'] {
         position: absolute;
         left: 50px;
-        top: -20px;
+        z-index: 10;
+        top: 5px;
         overflow: hidden;
         width: calc(100% - 100px);
         -webkit-appearance: none;
