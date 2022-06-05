@@ -1,6 +1,6 @@
 @import "../base.less";
 
-@media screen and (max-height: 800px) {
+@media screen and (max-height: 812px) {
 
     .header__theme {
         width: @size-image-small;
@@ -25,11 +25,30 @@
     }
 
     .form-data__textarea {
+        position: absolute;
+        top: 30px;
+        max-width: 80%;
         flex-direction: column;
     }
 
     .form-data .textarea {
         height: 25vh;
+        //width: unset;
+        //max-width: 90%;
+    }
+    .form-data__button {
+        position: fixed;
+        bottom: 10px;
+        right: calc(50% - 20px);
+        height: 30px;
+        width: 40px;
+        border-radius: 5px;
+        margin: 0;
+        &:before {
+            height: 30px;
+            width: 40px;
+            border-radius: 5px;
+        }
     }
 }
 
