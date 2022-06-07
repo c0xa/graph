@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 
     maxAnimationStep: number = 372;
 
-    isPause: boolean = false;
+    isPause: boolean = true;
 
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
@@ -92,7 +92,13 @@ export class AppComponent implements OnInit {
             this.animationChange.push(count);
         }))
         this.maxAnimationStep = this.animationData.length - 1;
-        this.animationWidth = window.innerWidth / this.maxAnimationStep;
+        this.animationWidth = (window.innerWidth - 100)  / this.maxAnimationStep;
+        if (this.animationWidth === Number.NEGATIVE_INFINITY || this.animationWidth == Number.POSITIVE_INFINITY) {
+            this.animationWidth = 5;
+        }
+        if (this.animationWidth <= 0) {
+            this.animationWidth = 1;
+        }
         //the file with data graph is heaviest  -> loader should be hidden after parsing data
         const loader = document.querySelector(".page-loader")
         if (loader) {
@@ -158,7 +164,7 @@ export class AppComponent implements OnInit {
             this.count = this.slider.nativeElement.value;
         }
         clearInterval(this.interval);
-        if (this.count < this.maxAnimationStep && this.isPause) {
+        if (this.count < this.maxAnimationStep && !this.isPause) {
             this.interval = setInterval(() => {
                 if (this.count < this.maxAnimationStep && this.animationData)  {
                     const rowAnimation =  this.animationData[this.count].split(",");
@@ -171,6 +177,21 @@ export class AppComponent implements OnInit {
             },200);
         } else {
             clearInterval(this.interval);
+        }
+    }
+
+    animationTick() {
+        if (this.slider) {
+            this.count = this.slider.nativeElement.value;
+        }
+        if (this.count < this.maxAnimationStep) {
+            if (this.count < this.maxAnimationStep && this.animationData) {
+                const rowAnimation = this.animationData[this.count].split(",");
+                for (let column = 0; column < rowAnimation.length; column++) {
+                    const columnAnimation = rowAnimation[column].trim();
+                    this.nodes[column]?.setColorAnimation(+columnAnimation);
+                }
+            }
         }
     }
 

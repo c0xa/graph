@@ -15,7 +15,7 @@
         top: 25px;
         height: 150px;
         width: calc(100% - 100px);
-        transition: height 5s, visibility 1s;
+        transition: height 400ms;
         .svg-g {
             fill: @color-shadow-dark;
             &:hover {
@@ -34,36 +34,40 @@
             height: 20px;
 
             cursor: pointer;
-            background-color: @color-shadow-dark;
             border: 1px solid black;
             -webkit-mask-image: url("../../images/hide.svg");
             mask-image: url("../../images/hide.svg");
+
+            &.hide {
+                transform: rotate(180deg);
+            }
         }
     }
 
-    input[type='range'] {
+    &__input {
         position: absolute;
         left: 50px;
-        z-index: 10;
         top: 5px;
+
+        z-index: 10;
+        border-radius: 2px;
         overflow: hidden;
         width: calc(100% - 100px);
         -webkit-appearance: none;
         background-color: @color-shadow-dark;
     }
 
-    input[type="range"]::-webkit-slider-thumb {
+    &__input::-webkit-slider-thumb {
         -webkit-appearance: none;
         height: 20px;
-        width: 20px;
-        border-radius: 50%;
+        width: 5px;
         background: @color-font-light;
         cursor: ew-resize;
         box-shadow: 0 0 2px 0@color-shadow-dark;
         transition: background .3s ease-in-out;
     }
 
-    input[type=range]::-webkit-slider-runnable-track  {
+    &__input::-webkit-slider-runnable-track  {
         -webkit-appearance: none;
         box-shadow: none;
         border: none;

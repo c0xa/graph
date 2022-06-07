@@ -35,8 +35,8 @@
 
     <div *ngIf="this.isVisualization" class="main-visualization">
         <svg class="main-visualization__image image__close" (click)="isExit()"></svg>
-        <svg class="main-visualization__image image__animation" (click)="animation()"></svg>
-        <div class="main-visualization__image image__step">
+        <svg class="main-visualization__image image__animation" [class.pause]=!this.isPause (click)="animation()"></svg>
+        <div class="main-visualization__image image__step" (dblclick)="animationTick()">
             <input
                 class="input-step" type="number" id="rangeNumber" min="1" [max]="maxAnimationStep" [value]="count" oninput="range.value=value">
             </div>
@@ -54,8 +54,8 @@
                     </rect>
                 </g>
             </svg>
-            <svg class="visualization-form__svg-hide" (click)="hideVisualizationForm()"></svg>
-        <input type="range" min="1" #slider [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" [value]="count"/>
+            <svg class="visualization-form__svg-hide" [class.hide]=this.isHideVisualizationForm (click)="hideVisualizationForm()"></svg>
+            <input class="visualization-form__input" type="range" min="0" #slider [max]="maxAnimationStep" id="range" oninput="rangeNumber.value=value" [value]="count"/>
         </form>
     </div>
 

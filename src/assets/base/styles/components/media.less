@@ -25,30 +25,12 @@
     }
 
     .form-data__textarea {
-        position: absolute;
-        top: 30px;
         max-width: 80%;
         flex-direction: column;
     }
 
     .form-data .textarea {
         height: 25vh;
-        //width: unset;
-        //max-width: 90%;
-    }
-    .form-data__button {
-        position: fixed;
-        bottom: 10px;
-        right: calc(50% - 20px);
-        height: 30px;
-        width: 40px;
-        border-radius: 5px;
-        margin: 0;
-        &:before {
-            height: 30px;
-            width: 40px;
-            border-radius: 5px;
-        }
     }
 }
 
@@ -73,6 +55,25 @@
         && .footer {
             background-color: @background-primary-dark;
             box-shadow: none;
+        }
+    }
+    .form-data__textarea {
+        position: absolute;
+        top: 30px;
+    }
+
+    .form-data__button {
+        position: fixed;
+        top: 10px;
+        right: calc(50% - 20px);
+        height: 30px;
+        width: 40px;
+        border-radius: 5px;
+        margin: 0;
+        &:before {
+            height: 30px;
+            width: 40px;
+            border-radius: 5px;
         }
     }
 }

@@ -84,6 +84,12 @@
             top: @image-top-begin + @image-top-diff;
             -webkit-mask-image: url("../../images/play.svg");
             mask-image: url("../../images/play.svg");
+
+            &.pause {
+                border: 1px solid pink;
+                -webkit-mask-image: url("../../images/pause.svg");
+                mask-image: url("../../images/pause.svg");
+            }
         }
     }
 
