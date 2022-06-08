@@ -174,8 +174,17 @@ export class AppComponent implements OnInit {
                     }
                     this.count++;
                 }
+                else {
+                    if (!this.isPause) {
+                        this.isPause = !this.isPause;
+                    }
+                    clearInterval(this.interval);
+                }
             },200);
         } else {
+            if (!this.isPause) {
+                this.isPause = !this.isPause;
+            }
             clearInterval(this.interval);
         }
     }
