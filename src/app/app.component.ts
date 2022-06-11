@@ -1,9 +1,6 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
-    Input,
     OnInit,
     ViewChild
 } from '@angular/core';
@@ -35,8 +32,10 @@ export class AppComponent implements OnInit {
     animationString: string = "";
     animationData: string[] = [];
 
+    activeAnimationChange: number = -1;
     animationChange: number[] = [];
     animationWidth: number = 0;
+    animationHeight: number = 0;
 
     subscriptionText: any;
     subscriptionAnimation: any;
@@ -92,7 +91,8 @@ export class AppComponent implements OnInit {
             this.animationChange.push(count);
         }))
         this.maxAnimationStep = this.animationData.length - 1;
-        this.animationWidth = (window.innerWidth - 100)  / this.maxAnimationStep;
+        this.animationWidth = (window.innerWidth - 100)  / this.animationData.length;
+        this.animationHeight = 110 / Math.max(...this.animationChange);
         if (this.animationWidth === Number.NEGATIVE_INFINITY || this.animationWidth == Number.POSITIVE_INFINITY) {
             this.animationWidth = 5;
         }
@@ -154,6 +154,7 @@ export class AppComponent implements OnInit {
 
     isExit() {
         this.isVisualization = false;
+        this.isPause = true;
         this.count = 0;
         clearInterval(this.interval);
     }
@@ -175,16 +176,12 @@ export class AppComponent implements OnInit {
                     this.count++;
                 }
                 else {
-                    if (!this.isPause) {
-                        this.isPause = !this.isPause;
-                    }
+                    this.isPause = true;
                     clearInterval(this.interval);
                 }
             },200);
         } else {
-            if (!this.isPause) {
-                this.isPause = !this.isPause;
-            }
+            this.isPause = true;
             clearInterval(this.interval);
         }
     }

@@ -1,17 +1,16 @@
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component, ElementRef,
+    Component,
     HostListener,
     Input,
-    OnChanges, OnDestroy,
-    OnInit, ViewChild
+    OnDestroy,
+    OnInit
 } from '@angular/core';
 
 import {D3Service, ForceDirectedGraph, Link, NodeGraph} from "../d3";
 import {Observable, Subject, Subscription} from "rxjs";
 import {takeUntil} from "rxjs/operators";
-import * as d3 from 'd3';
 
 @Component({
     selector: 'app-node-visual-component',
@@ -32,8 +31,12 @@ export class NodeVisualComponentComponent implements OnInit, OnDestroy {
     notifier = new Subject();
     activeNodeID: string = "";
 
-    @HostListener('resize')
+    @HostListener('window:resize')
     onResize() {
+        this._options = {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
         this.graph.initSimulation(this.options);
     }
 

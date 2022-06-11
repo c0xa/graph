@@ -18,7 +18,7 @@
                             <textarea
                                 class="textarea"  name="textareaAnimation">{{animationString}}</textarea>
                         </div>
-                        <button title="Go visualization" class="form-data__button" type="submit"></button>
+                        <button title="Go visualization" class="form-data__button" type="submit">START</button>
                     </form>
                 </div>
             </main>
@@ -38,7 +38,7 @@
         <svg class="main-visualization__image image__animation" [class.pause]=!this.isPause (click)="animation()"></svg>
         <div class="main-visualization__image image__step" (dblclick)="animationTick()">
             <input
-                class="input-step" type="number" id="rangeNumber" min="1" [max]="maxAnimationStep" [value]="count" oninput="range.value=value">
+                class="input-step" type="number" id="rangeNumber" min="0" [max]="maxAnimationStep" [value]="count" oninput="range.value=value">
             </div>
         <app-node-visual-component
             [nodes]="nodes"
@@ -50,8 +50,17 @@
         <form class="visualization-form">
             <svg [class.hide]=this.isHideVisualizationForm class="visualization-form__svg">
                 <g *ngFor="let value of animationChange, let i = index">
-                    <rect class="svg-g" [attr.width]="animationWidth" [attr.height]="value + 1" [attr.x]="animationWidth * i" [attr.index]="i">
+                    <rect (mouseover)="activeAnimationChange = i"
+                          (mouseout)="activeAnimationChange = -1"
+                          class="svg-g"
+                          [attr.width]="animationWidth"
+                          [attr.height]="value * animationHeight"
+                          [attr.x]="animationWidth * i">
                     </rect>
+                    <text class="svg-text" [class.hide]="activeAnimationChange !== i" [attr.y]="125"
+                          [attr.x]="i > maxAnimationStep / 2 ? animationWidth * i - 25:  animationWidth * i">
+                        {{i}}
+                    </text>
                 </g>
             </svg>
             <svg class="visualization-form__svg-hide" [class.hide]=this.isHideVisualizationForm (click)="hideVisualizationForm()"></svg>

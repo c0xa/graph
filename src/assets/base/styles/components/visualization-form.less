@@ -22,6 +22,12 @@
                 fill: @color-alarm;
             }
         }
+        .svg-text {
+            border: 1px solid black;
+            &.hide {
+                visibility: hidden;
+            }
+        }
         &.hide {
             visibility: hidden;
             height: 50px;
@@ -60,7 +66,8 @@
     &__input::-webkit-slider-thumb {
         -webkit-appearance: none;
         height: 20px;
-        width: 5px;
+        width: 20px;
+        border-radius: 50%;
         background: @color-font-light;
         cursor: ew-resize;
         box-shadow: 0 0 2px 0@color-shadow-dark;

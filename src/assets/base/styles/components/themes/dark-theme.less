@@ -1,6 +1,9 @@
 @import "../../base.less";
 
 .dark-theme {
+    .svg-text {
+        fill: @color-font-light;
+    }
     .main {
         background-color: @background-primary-dark;
     }
@@ -39,11 +42,8 @@
         }
         &__button {
             background-color: @background-secondary-dark;
-            &:before {
-                color: @color-font-light;
-                background-color: @background-primary-dark;
-                background-image: linear-gradient(315deg, @background-primary-dark 0%, @background-primary-dark 74%);
-            }
+            color: @color-font-light;
+            box-shadow: 0 2px 2px @color-shadow-dark;
         }
     }
     .footer {
