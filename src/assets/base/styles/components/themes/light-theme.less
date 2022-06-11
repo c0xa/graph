@@ -16,7 +16,7 @@
     }
 
     & .form-data {
-        &__textarea, &__error {
+        &__textarea, &__error, .textarea {
             box-shadow: 0 4px 12px @color-shadow-grey;
             background-color: @background-primary-light;
             color: @color-font-dark;
@@ -41,7 +41,6 @@
         }
     }
     & .footer {
-        background-color: @background-primary-light;
         &-link__image, .image-info {
             background-color: @color-font-dark;
         }
@@ -54,7 +53,12 @@
 
         }
     }
-    & .main-visualization__image {
+    & .main-visualization__image, .visualization-form__svg-hide {
         background-color: @background-secondary-light;
+    }
+    & .image__step {
+        background-color: unset;
+        color: @background-secondary-light;
+        border-color:  @background-secondary-light;
     }
 }

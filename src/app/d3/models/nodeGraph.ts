@@ -1,3 +1,4 @@
+import {ChangeDetectorRef} from "@angular/core";
 
 export class NodeGraph implements d3.SimulationNodeDatum {
     // optional - defining optional implementation properties - required for relevant typing assistance
@@ -7,16 +8,12 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     vy?: number;
     fx?: number | null;
     fy?: number | null;
-    // index: number;
     id: string;
     linkCount: number = 0;
-    colorAnimation: string;
+    colorAnimation: number = 0;
 
     constructor(id: string) {
         this.id = id;
-        this.colorAnimation = "0";
-        // this.index = index;
-        // console.log(this.id);
     }
 
     normal = () => {
@@ -25,12 +22,18 @@ export class NodeGraph implements d3.SimulationNodeDatum {
 
     get r() {
         const normal = this.normal();
-        return normal === 0 ? 40 : 50 * normal + 10;
+        return 3 + normal * 3;
     }
 
     get color() {
-        // console.log("soak color", this.normal())
-        return this.colorAnimation === "0" ?  "rgba(61,162,18,0.8)" : "rgb(217,46,60)"
+        if (this.colorAnimation === 1) {
+            return "hsl(15, 100%, 33%)";
+        }
+        if (this.colorAnimation === 0) {
+            return "hsl(100, 100%, 33%)";
+        }
+        let normalColor = 85 - this.colorAnimation * 85;
+        return "hsl(" + normalColor + ", 100%, 33%)"
     }
 
     get link() {
@@ -39,10 +42,10 @@ export class NodeGraph implements d3.SimulationNodeDatum {
 
     get fontSize() {
         const normal = this.normal();
-        return normal === 0 ? 50 + 'px': 50 * normal + 10 + 'px';
+        return 6 + normal * 2 + 'px'
     }
 
-    setColorAnimation(colorAnimation: string) {
+    setColorAnimation(colorAnimation: number) {
         this.colorAnimation = colorAnimation;
     }
 }

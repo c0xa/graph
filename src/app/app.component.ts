@@ -1,11 +1,15 @@
-import {ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import * as d3 from 'd3';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    Input,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import {HttpService} from "./logic/models/HttpService";
 import {Link, NodeGraph} from "./d3";
 import {Observable} from "rxjs";
-import {scaleRadial} from "d3";
-import {Constant} from "./data";
-import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -14,10 +18,7 @@ import {HttpClient} from "@angular/common/http";
 })
 
 export class AppComponent implements OnInit {
-
     @ViewChild("slider") slider: ElementRef | undefined;
-
-
     httpService: HttpService;
 
     nodes: NodeGraph[] = [];
@@ -30,35 +31,38 @@ export class AppComponent implements OnInit {
     allLinks: Link[] = [];
 
     count: number = 0;
-    maxCount: number = 0;
     dataJsonString: string = "";
+    animationString: string = "";
     animationData: string[] = [];
+
+    animationChange: number[] = [];
+    animationWidth: number = 0;
+
     subscriptionText: any;
     subscriptionAnimation: any;
     interval: number = 0;
 
+    maxAnimationStep: number = 372;
+
+    isPause: boolean = true;
+
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
+    isHideVisualizationForm: boolean = false;
     isError: boolean = false;
+    changeText: boolean = false;
 
     constructor(httpService: HttpService) {
         this.httpService = httpService;
-
         this.subscriptionText = httpService.getData().subscribe((data: string) => {
             this.dataJsonString = data;
-            this.parsing(this.dataJsonString);
+            this.parsingData(this.dataJsonString);
         });
 
         this.subscriptionAnimation = httpService.getDataAnimation().subscribe((data: string) => {
-            this.animationData = data.split("\n");
-            this.maxCount = this.animationData.length - 1;
+            this.animationString = data;
+            this.parsingAnimation(data);
         });
-
-        // setTimeout(() => {
-        //     SubscriptionText.unsubscribe();
-        //     // SubscriptionAnimation.unsubscribe();
-        // }, 200);
-
     }
 
     ngOnInit() {
@@ -71,14 +75,45 @@ export class AppComponent implements OnInit {
 
     }
 
-    parsing(data: string) {
+    parsingAnimation(data: string) {
+        const regularIsDigit = /(1[,\n])|(0(,)|(.\d+[,\n]))/;
+        const regularIsAlphabet = /[A-Za-z]/;
+        this.animationChange = [];
+        const isTesting = regularIsDigit.test(data) && !regularIsAlphabet.test(data);
+        if (!isTesting) {
+            this.isVisualization = false;
+            this.isError = true;
+            return;
+        }
+        this.isError = false;
+        this.animationData = data.split("\n");
+        this.animationData.forEach((value => {
+            let count = value.split(",").filter((value) => value !== "0" && value !== "0\r").length;
+            this.animationChange.push(count);
+        }))
+        this.maxAnimationStep = this.animationData.length - 1;
+        this.animationWidth = (window.innerWidth - 100)  / this.maxAnimationStep;
+        if (this.animationWidth === Number.NEGATIVE_INFINITY || this.animationWidth == Number.POSITIVE_INFINITY) {
+            this.animationWidth = 5;
+        }
+        if (this.animationWidth <= 0) {
+            this.animationWidth = 1;
+        }
+        //the file with data graph is heaviest  -> loader should be hidden after parsing data
+        const loader = document.querySelector(".page-loader")
+        if (loader) {
+            loader.classList.add("hidden")
+        }
+    }
+
+
+    parsingData(data: string) {
         let objJson;
         try {
             objJson = JSON.parse(data);
         } catch (e) {
             this.isVisualization = false;
             this.isError = true;
-            console.log("soak", e)
             return;
         }
         this.isError = false;
@@ -109,68 +144,71 @@ export class AppComponent implements OnInit {
         this.isVisualization = true
         this.nodes = [];
         this.links = [];
-        // if (this.slider) {
-        //     this.time = this.slider.nativeElement.value;
-        // }
         this.mapNodes = new Map<string, NodeGraph>();
         this.allLinks = [];
-        this.dataJsonString = document.forms[0]['textarea'].value;
-        this.parsing(this.dataJsonString);
+        this.dataJsonString = document.forms[0]['textareaData'].value;
+        this.animationString = document.forms[0]['textareaAnimation'].value;
+        this.parsingData(this.dataJsonString);
+        this.parsingAnimation(this.animationString)
     }
 
     isExit() {
         this.isVisualization = false;
+        this.count = 0;
         clearInterval(this.interval);
-    }
-
-    animationStep() {
-        clearInterval(this.interval);
-        if (this.slider) {
-            this.count = this.slider.nativeElement.value;
-        }
-        if (this.animationData) {
-            const rowAnimation = this.animationData[this.count].split(",");
-            for (let column = 0; column < rowAnimation.length; column++) {
-                const columnAnimation = rowAnimation[column].trim();
-                this.nodes[column]?.setColorAnimation(columnAnimation)
-            }
-        }
     }
 
     animation() {
+        this.isPause = !this.isPause;
         if (this.slider) {
             this.count = this.slider.nativeElement.value;
         }
-        // this.count++;
-        // // for (let row = 0; row < this.animationData.length; row++) {
-    // // // for (let row = 105; row < 106; row++) {
-    //     const rowAnimation =  this.animationData[this.count].split(",");
-    //     console.log(rowAnimation)
-    //     for (let column = 0; column < rowAnimation.length; column++) {
-    //         const columnAnimation =  rowAnimation[column];
-    //         // console.log(  this.nodes[column])
-    //         this.nodes[column].setColorAnimation(columnAnimation)
-    //         // setTimeout(() => {},100);
-    //     }
-    // }
-    //     console.log("rime", this.animationData[this.count].split(","),  this.nodes);
         clearInterval(this.interval);
-        this.interval = setInterval(() => {
-            // console.log(this.nodes)
-            // console.log("rime", thi  s.animationData[this.count].split(","),  this.count);
-            if (this.count < 372 && this.animationData)  {
-                const rowAnimation =  this.animationData[this.count].split(",");
+        if (this.count < this.maxAnimationStep && !this.isPause) {
+            this.interval = setInterval(() => {
+                if (this.count < this.maxAnimationStep && this.animationData)  {
+                    const rowAnimation =  this.animationData[this.count].split(",");
+                    for (let column = 0; column < rowAnimation.length; column++) {
+                        const columnAnimation = rowAnimation[column].trim();
+                        this.nodes[column]?.setColorAnimation(+columnAnimation);
+                    }
+                    this.count++;
+                }
+                else {
+                    if (!this.isPause) {
+                        this.isPause = !this.isPause;
+                    }
+                    clearInterval(this.interval);
+                }
+            },200);
+        } else {
+            if (!this.isPause) {
+                this.isPause = !this.isPause;
+            }
+            clearInterval(this.interval);
+        }
+    }
+
+    animationTick() {
+        if (this.slider) {
+            this.count = this.slider.nativeElement.value;
+        }
+        if (this.count < this.maxAnimationStep) {
+            if (this.count < this.maxAnimationStep && this.animationData) {
+                const rowAnimation = this.animationData[this.count].split(",");
                 for (let column = 0; column < rowAnimation.length; column++) {
                     const columnAnimation = rowAnimation[column].trim();
-                    // console.log( columnAnimation, this.nodes[column], column)
-                    this.nodes[column]?.setColorAnimation(columnAnimation);
+                    this.nodes[column]?.setColorAnimation(+columnAnimation);
                 }
-                this.count++;
             }
-        },200);
+        }
     }
 
     switchTheme() {
         this.isSwitchTheme = !this.isSwitchTheme;
+    }
+
+    hideVisualizationForm() {
+        this.isHideVisualizationForm = !this.isHideVisualizationForm;
     }
 }

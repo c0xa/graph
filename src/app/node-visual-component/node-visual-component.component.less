@@ -1,27 +1,30 @@
-@import "../../assets/themes/base/styles/base.less";
+@import "../../assets/base/styles/base.less";
 
 .link {
-    //width: 600px;
-    //height: 600px;
     &__line {
-        stroke-width: 5px;
+        stroke-width: 1px;
+
+        &&.active {
+            stroke-width: 2px;
+            stroke: @color-active !important;
+        }
     }
 }
 
 .node {
     cursor: pointer;
-    //&__svg {
-    //    width: 100px;
-    //    height: 100px;
-    //}
-
+    &:hover {
+        .node__svg {
+            fill: @color-active;
+        }
+    }
     &__text {
         text-anchor: middle;
+        alignment-baseline: central;
         font-weight: 300;
         fill: @color-font-dark;
     }
 }
-
 
 .visualization-panel {
     display: flex;
@@ -29,7 +32,7 @@
     &.dark-theme {
         background-color: @color-font-light;
         background-image: linear-gradient(315deg, @background-primary-dark 0%, @background-primary-dark 74%);
-        & .link {
+        .link {
             &__line {
                 stroke: @color-font-light;
             }

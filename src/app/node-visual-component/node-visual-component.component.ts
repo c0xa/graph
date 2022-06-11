@@ -1,43 +1,39 @@
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component,
+    Component, ElementRef,
     HostListener,
     Input,
     OnChanges, OnDestroy,
-    OnInit
+    OnInit, ViewChild
 } from '@angular/core';
 
 import {D3Service, ForceDirectedGraph, Link, NodeGraph} from "../d3";
 import {Observable, Subject, Subscription} from "rxjs";
 import {takeUntil} from "rxjs/operators";
+import * as d3 from 'd3';
 
 @Component({
     selector: 'app-node-visual-component',
     templateUrl: './node-visual-component.component.html',
     styleUrls: ['./node-visual-component.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestroy {
+export class NodeVisualComponentComponent implements OnInit, OnDestroy {
     @Input('nodes') nodes: NodeGraph[] = [];
     @Input('links') links: Link[] = [];
     @Input('switchTheme') isSwitchTheme: boolean = false;
+    @Input('stepAnimation') stepAnimation: number = 1;
 
     graph!: ForceDirectedGraph;
     _options: { width: number, height: number } = {width: 400, height: 400};
     subscription: Subscription = new Subscription();
     observable: Observable<any> = new Observable<any>();
     notifier = new Subject();
+    activeNodeID: string = "";
 
     @HostListener('resize')
     onResize() {
-        this.graph.initSimulation(this.options);
-    }
-
-    ngOnChanges() {
-        this.unsubscribing();
-        this.graph = this.d3Service.getForceDirectedGraph(this.nodes, this.links, this.options);
-        this.subscribing();
         this.graph.initSimulation(this.options);
     }
 
@@ -67,16 +63,7 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
         this.subscription.unsubscribe()
     }
 
-
-    ngAfterViewInit() {
-        this.graph.initSimulation(this.options);
-    }
-
     get options() {
-        // const innerWidth = (window.innerWidth * 0.4) > 300 ? (window.innerWidth * 0.4) : 300;
-        // const innerHeight = (window.innerHeight * 0.45) > 200 ? (window.innerHeight * 0.45) : 200;
-        const innerWidth = window.innerWidth < 600 ? (window.innerWidth * 0.4) : window.innerWidth - 300;
-        const innerHeight = window.innerHeight < 600 ? (window.innerHeight * 0.45) : window.innerHeight - 300;
         return this._options = {
             width: window.innerWidth,
             height: window.innerHeight
@@ -85,5 +72,9 @@ export class NodeVisualComponentComponent implements OnInit, OnChanges, OnDestro
 
     ngOnDestroy() {
         this.unsubscribing();
+    }
+
+    active(id: string) {
+        this.activeNodeID = id;
     }
 }
