@@ -1,76 +1,81 @@
 {
     "Nodes": [
         {
-            "ID" : "1"
+            "ID" : "1",
+            "Throughput":20
         },
         {
-            "ID" : "2"
+            "ID" : "2",
+            "Throughput":22
         },
         {
-            "ID" : "3"
+            "ID" : "3",
+            "Throughput":19
         },
         {
-            "ID" : "4"
+            "ID" : "4",
+            "Throughput":22
         },
         {
-            "ID" : "5"
+            "ID" : "5",
+            "Throughput":18
         }
     ],
     "Links": [
         {
             "SourceID": "1",
             "TargetID": "2",
-            "Bandwidth": 100
+            "Bandwidth":164
         },
         {
             "SourceID": "1",
             "TargetID": "3",
-            "Bandwidth": 100
+            "Bandwidth":234
         },
         {
             "SourceID": "1",
             "TargetID": "4",
-            "Bandwidth": 100
+            "Bandwidth":174
         },
         {
             "SourceID": "1",
             "TargetID": "5",
-            "Bandwidth": 100
+            "Bandwidth":234
         },
         {
             "SourceID": "2",
             "TargetID": "3",
-            "Bandwidth": 100
+            "Bandwidth":324
         },
         {
             "SourceID": "2",
             "TargetID": "4",
-            "Bandwidth": 100
+            "Bandwidth":314
         },
         {
             "SourceID": "2",
             "TargetID": "5",
-            "Bandwidth": 100
+            "Bandwidth":184
         },
         {
             "SourceID": "3",
             "TargetID": "4",
-            "Bandwidth": 100
+            "Bandwidth":204
         },
         {
             "SourceID": "4",
             "TargetID": "3",
-            "Bandwidth": 100
+            "Bandwidth":234
         },
         {
             "SourceID": "4",
             "TargetID": "5",
-            "Bandwidth": 100
+            "Bandwidth":214
         },
         {
             "SourceID": "5",
             "TargetID": "3",
-            "Bandwidth": 100
+            "Bandwidth":230
         }
     ]
 }

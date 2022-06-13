@@ -9,6 +9,7 @@
                 *ngFor="let link of links"
                 class="svg-graph__link">
                 <line [class.active]="link.source.id === this.activeNodeID || link.target.id === this.activeNodeID" class="link__line"
+                      [attr.stroke-width] ="link.width"
                     [attr.x1]="link.source.x"
                     [attr.y1]="link.source.y"
                     [attr.x2]="link.target.x"

@@ -48,7 +48,8 @@ export class AppComponent implements OnInit {
     //variable for switching theme; default - dark theme
     isSwitchTheme: boolean = false;
     isHideVisualizationForm: boolean = false;
-    isError: boolean = false;
+    isErrorJson: boolean = false;
+    isErrorCSV: boolean = false;
     changeText: boolean = false;
 
     constructor(httpService: HttpService) {
@@ -76,15 +77,15 @@ export class AppComponent implements OnInit {
 
     parsingAnimation(data: string) {
         const regularIsDigit = /(1[,\n])|(0(,)|(.\d+[,\n]))/;
-        const regularIsAlphabet = /[A-Za-z]/;
+        const regularIsAlphabet = /[A-Za-zа-яА-Я/!@#$%^&*()_-]/;
         this.animationChange = [];
         const isTesting = regularIsDigit.test(data) && !regularIsAlphabet.test(data);
         if (!isTesting) {
             this.isVisualization = false;
-            this.isError = true;
+            this.isErrorCSV = true;
             return;
         }
-        this.isError = false;
+        this.isErrorCSV = false;
         this.animationData = data.split("\n");
         this.animationData.forEach((value => {
             let count = value.split(",").filter((value) => value !== "0" && value !== "0\r").length;
@@ -112,16 +113,17 @@ export class AppComponent implements OnInit {
         try {
             objJson = JSON.parse(data);
         } catch (e) {
+            console.log(e)
             this.isVisualization = false;
-            this.isError = true;
+            this.isErrorJson = true;
             return;
         }
-        this.isError = false;
+        this.isErrorJson = false;
         for (const event in objJson){
             const dataCopy = objJson[event];
             for (let key in dataCopy){
                 if (event == "Nodes") {
-                    this.mapNodes.set(dataCopy[key].ID, new NodeGraph(dataCopy[key].ID))
+                    this.mapNodes.set(dataCopy[key].ID, new NodeGraph(dataCopy[key].ID, dataCopy[key].Throughput))
                 } else if (event == "Links") {
                     let source = this.mapNodes.get(dataCopy[key].SourceID);
                     let target = this.mapNodes.get(dataCopy[key].TargetID);

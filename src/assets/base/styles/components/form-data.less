@@ -18,11 +18,9 @@
     }
 
     .textarea {
+        resize: none;
         width: 80%;
         height: 60vh;
-
-        max-width: 80%;
-        max-height: 60vh;
 
         margin: @indent-small;
         border-radius: 2px;
@@ -56,13 +54,14 @@
         transition: 500ms;
     }
 
-    &.error {
+    &.errorJSON {
         & .form-data__error {
             &:before {
                 position: absolute;
-                top: calc(40% - 20px);
-                width: 40px;
-                height: 20px;
+                top: calc(40% - 50px);
+                left: calc(50% - 50px);
+                width: 100px;
+                height: 30px;
                 box-shadow: 0 4px 12px @color-alarm;
                 -webkit-backdrop-filter: blur(3px);
                 backdrop-filter: blur(3px);
@@ -70,9 +69,28 @@
                 border-radius: 5px;
                 padding: 20px;
                 margin: 30px;
-                content: "Error";
+                content: "Error JSON";
             }
         }
 
+    }
+    &.errorCSV {
+        & .form-data__error {
+            &:before {
+                position: absolute;
+                top: calc(40% - 50px);
+                left: calc(50% - 50px);
+                width: 100px;
+                height: 30px;
+                box-shadow: 0 4px 12px @color-alarm;
+                -webkit-backdrop-filter: blur(3px);
+                backdrop-filter: blur(3px);
+                border-bottom: 1px solid @color-shadow-dark;
+                border-radius: 5px;
+                padding: 20px;
+                margin: 30px;
+                content: "Error CSV";
+            }
+        }
     }
 }
