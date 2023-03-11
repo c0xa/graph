@@ -1,0 +1,73 @@
+@import "../../base.less";
+
+.dark-theme {
+    .svg-text {
+        fill: @color-font-light;
+    }
+    .main {
+        background-color: @background-primary-dark;
+    }
+    .header {
+        background-color: @background-secondary-dark;
+        color: @color-font-light;
+        fill: @color-font-light;
+
+        & .image-theme {
+            background-color: @color-font-light;
+            -webkit-mask-image: url("../../../images/light-theme.svg");
+            mask-image: url("../../../images/light-theme.svg");
+        }
+    }
+    .image__step .input-step {
+        color: @color-font-light;
+    }
+    .content {
+        background-color: @background-primary-dark;
+        color: @color-font-light;
+    }
+    .form-data {
+        &__textarea, &__error, .textarea {
+            box-shadow: 0 4px 12px @color-shadow-dark;
+            background-color: @background-secondary-dark;
+            color: @color-font-light;
+            &::-webkit-scrollbar-track {
+                background-color: @background-primary-dark;
+                border-radius: 100px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: @color-scroll;
+                border-radius: 100px;
+            }
+        }
+        &__button {
+            background-color: @background-secondary-dark;
+            color: @color-font-light;
+            box-shadow: 0 2px 2px @color-shadow-dark;
+        }
+    }
+    .footer {
+        &-link__image, .image-info {
+            background-color: @color-font-light;
+        }
+        &-notation {
+            &:hover {
+                color: @color-font-light;
+                background-color: @background-secondary-dark;
+                box-shadow: 0 4px 12px @color-shadow-grey;
+            }
+
+        }
+    }
+    .main-visualization__image, .visualization-form__svg-hide {
+        background-color: @color-font-light;
+    }
+    .svg-g {
+        fill: @color-font-light;
+    }
+    .image__step {
+        background-color: unset;
+        color: @color-font-light;
+        border-color: @color-font-light;
+    }
+}

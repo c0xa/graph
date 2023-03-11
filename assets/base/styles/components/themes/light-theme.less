@@ -1,0 +1,62 @@
+@import "../../base.less";
+
+.light-theme {
+    .svg-text {
+        fill: @color-font-dark;
+    }
+    .header {
+        color: @color-font-light;
+        & .image-theme {
+            background-color: @color-font-dark;
+            -webkit-mask-image: url("../../../images/dark-theme.svg");
+            mask-image: url("../../../images/dark-theme.svg");
+        }
+    }
+    & .content {
+        background-color: @background-primary-light;
+        color: @color-font-light;
+    }
+
+    .form-data {
+        &__textarea, &__error, .textarea {
+            box-shadow: 0 4px 12px @color-shadow-grey;
+            background-color: @background-primary-light;
+            color: @color-font-dark;
+            &::-webkit-scrollbar-track {
+                background-color: @color-scroll;
+                border-radius: 100px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: @background-secondary-light;
+                border-radius: 100px;
+            }
+        }
+        &__button {
+            background-color: @background-secondary-light;
+            color: @background-primary-light;
+            box-shadow: 0 4px 4px @color-shadow-grey;
+        }
+    }
+    .footer {
+        &-link__image, .image-info {
+            background-color: @color-font-dark;
+        }
+        &-notation {
+            &:hover {
+                color: @color-font-dark;
+                background-color: @background-primary-light;
+                box-shadow: 0 4px 12px @color-shadow-grey;
+            }
+
+        }
+    }
+    .main-visualization__image, .visualization-form__svg-hide {
+        background-color: @background-secondary-light;
+    }
+    .image__step {
+        background-color: unset;
+        color: @background-secondary-light;
+        border-color:  @background-secondary-light;
+    }
+}

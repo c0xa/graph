@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Graph</title>
+    <base href="https://c0xa.github.io/graph/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="src/assets/base/images/favicon.ico">
+<!--    <link rel="light theme" href="src/assets/base/images/light-theme.svg">-->
+<!--    <link rel="dark theme" href="src/assets/base/images/dark-theme.svg">-->
+<!--    <link rel="close" href="src/assets/base/images/close.svg">-->
+<!--    <link rel="hide" href="src/assets/base/images/hide.svg">-->
+<!--    <link rel="info" href="src/assets/base/images/info.svg">-->
+<!--    <link rel="message" href="src/assets/base/images/message.svg">-->
+<!--    <link rel="pause" href="src/assets/base/images/pause.svg">-->
+<!--    <link rel="play" href="src/assets/base/images/play.svg">-->
+<style>*{margin:0;padding:0}</style><link rel="stylesheet" href="styles.3b1f6a1673ffe8fe.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.3b1f6a1673ffe8fe.css"></noscript></head>
+<body>
+
+<!-- Page loading animation
+  All styles are embedded in index.html in order to dive as soon as possible -->
+<div class="page-loader" #loader="">
+    <div class="page-loader__spinner"></div>
+    <div class="page-loader__spinner"></div>
+    <div class="page-loader__spinner"></div>
+</div>
+<style>
+    .page-loader {
+        background: #FFFFFF;
+
+        width: 100%;
+        height: 100%;
+
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        z-index: 999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .page-loader.hidden {
+        display: none;
+    }
+
+    .page-loader__spinner {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border: 2px solid #6200EE;
+        border-radius: 20%;
+    }
+
+    /* Animation for each element, but with a shift in start time */
+    .page-loader__spinner:nth-child(1) {
+        opacity: .8;
+        animation: page-loader-spinner-anim 4s 0s ease-in-out infinite alternate;
+    }
+
+    .page-loader__spinner:nth-child(2) {
+        opacity: .6;
+        animation: page-loader-spinner-anim 4s .2s ease-in-out infinite alternate;
+    }
+
+    .page-loader__spinner:nth-child(3) {
+        opacity: .4;
+        animation: page-loader-spinner-anim 4s .4s ease-in-out infinite alternate;
+    }
+
+    /* Animation using transform functions, which is performed on the GPU */
+    /* Thus, the script can hang the page, but the animation will continue to be executed */
+    @keyframes page-loader-spinner-anim {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+    <app-root [loader]="loader"></app-root>
+<script src="runtime.6cb9e3361939e0fd.js" type="module"></script><script src="polyfills.59f9e35de15bb859.js" type="module"></script><script src="main.318cbf4cd870cc34.js" type="module"></script>
+
+</body></html>

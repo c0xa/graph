@@ -1,0 +1,51 @@
+@import "../base.less";
+
+.footer {
+    & .image-info, .image-message {
+        position: fixed;
+
+        bottom: @indent-tiny;
+        width: @size-image-small;
+        height: @size-image-small;
+        background-size: @size-image-small @size-image-small;
+
+        cursor: pointer;
+    }
+    &-notation {
+        position: fixed;
+
+        bottom: 0;
+        left: 20px;
+        margin: @indent-medium;
+        width: @size-image-small;
+        height: @size-image-small;
+
+        .font-medium-medium();
+        &:hover {
+            position: fixed;
+
+            bottom: 60px;
+            left: 60px;
+            width: 250px;
+            height: 200px;
+            box-shadow: 0 4px 12px @color-shadow-grey;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px;
+            &:before {
+                content: "This is visualization graph. Designed and developed Software for visualizing the congestion of the data transmission network, which will assist information security specialists during threat research. The system can be useful to ordinary users. JSON - graph structure. CSV - animation data";
+            }
+
+        }
+    }
+    & .image-info {
+        left: 20px;
+        -webkit-mask-image: url("../../images/info.svg");
+        mask-image: url("../../images/info.svg");
+    }
+    & .image-message {
+        right: 20px;
+        -webkit-mask-image: url("../../images/message.svg");
+        mask-image: url("../../images/message.svg");
+    }
+}
