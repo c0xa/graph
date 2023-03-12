@@ -1,2 +1,2 @@
 # graph
-https://graph-visualizations.herokuapp.com/
+https://main--golden-pasca-4ef10b.netlify.app/
