@@ -1,5 +1,4 @@
 import {ChangeDetectorRef} from "@angular/core";
-import {LogicalFileSystem} from "@angular/compiler-cli";
 
 export class NodeGraph implements d3.SimulationNodeDatum {
     // optional - defining optional implementation properties - required for relevant typing assistance
@@ -12,26 +11,17 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     id: string;
     linkCount: number = 0;
     colorAnimation: number = 0;
-    throughput: number = 0;
 
-    constructor(id: string, throughput: number = 0) {
+    constructor(id: string) {
         this.id = id;
-        this.throughput = throughput;
     }
 
-    normalRelativeLink = () => {
+    normal = () => {
         return Math.sqrt(this.linkCount);
     }
 
-    normalRelativeBandwidth = () => {
-        if (this.throughput > 10) {
-            this.throughput /= 2
-        }
-        return Math.sqrt(this.throughput);
-    }
-
     get r() {
-        const normal = this.normalRelativeLink();
+        const normal = this.normal();
         return 3 + normal * 3;
     }
 
@@ -51,7 +41,7 @@ export class NodeGraph implements d3.SimulationNodeDatum {
     }
 
     get fontSize() {
-        const normal = this.normalRelativeLink();
+        const normal = this.normal();
         return 6 + normal * 2 + 'px'
     }
 

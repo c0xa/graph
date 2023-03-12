@@ -10,8 +10,7 @@ export class HttpService {
     private _fileNameJsonData: string = "assets/data/graph/data2.json";
     // private _fileNameJsonData: string = "assets/data/graph/materials.json";
     // private _fileNameJsonData: string = "assets/data/graph/materials.json";
-    // private _fileNameAnimationBlock: string = "assets/data/workload/animation-block.txt";
-    private _fileNameAnimationBlock: string = "assets/data/workload/animation.txt";
+    private _fileNameAnimationBlock: string = "assets/data/workload/animation-block.txt";
     data: string = ""
 
     dataJson: Observable<any>;

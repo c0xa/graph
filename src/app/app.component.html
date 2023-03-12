@@ -10,7 +10,7 @@
         <div class="content">
             <main class="main content__main">
                 <div class="main-data">
-                    <form (submit)="onSubmitData()" [class.errorJSON]=isErrorJson [class.errorCSV]=isErrorCSV class="form-data main-data__form-data">
+                    <form (submit)="onSubmitData()" [class.error]=isError class="form-data main-data__form-data">
                         <div class="form-data__error"></div>
                         <div class="form-data__textarea">
                             <textarea
